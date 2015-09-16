@@ -1,0 +1,33 @@
+{
+    "users": [
+        {
+            "first_name": "Max",
+            "id": 1,
+            "last_name": "Johnson",
+            "password": "password",
+            "username": "demo",
+            "gravatar_hash": "7dea3df23e3bfa7fdfd264b1aa5fd34e"
+        },
+        {
+            "first_name": "John",
+            "id": 2,
+            "last_name": "Smith",
+            "password": "password",
+            "username": "js",
+            "gravatar_hash": "5b22c1ef381b0e09b04caba808342899"
+        },
+        {
+            "first_name": "Sophia",
+            "id": 3,
+            "last_name": "Williams",
+            "password": "password",
+            "username": "sw",
+            "gravatar_hash": "00706ee319199d25e5b926e156cceda5"
+        }
+    ],
+    "errors": {
+        "required": "Required field can not be left bank.",
+        "unavailable": "This feature is not available yet.",
+        "signin": "The username or password provided is incorrect."
+    }
+}

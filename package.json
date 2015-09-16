@@ -1,0 +1,47 @@
+{
+  "name": "sample-blog",
+  "version": "0.0.1",
+  "description": "Sample Blog",
+  "repository": "http://bitbucket.org/akorn",
+  "main": "src/js/app.js",
+  "dependencies": {
+    "jquery": "^1.11.3",
+    "moment": "^2.10.6",
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.25.1",
+    "react-router": "^0.13.3",
+    "react-router-bootstrap": "^0.18.1",
+    "reflux": "^0.2.12"
+  },
+  "devDependencies": {
+    "aliasify": "^1.7.2",
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "del": "^2.0.2",
+    "eslint": "^1.4.1",
+    "eslint-config-defaults": "^6.0.0",
+    "eslint-plugin-react": "^3.3.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.1",
+    "gulp-eslint": "^1.0.0",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-rev-all": "^0.8.21",
+    "gulp-sass": "^2.0.4",
+    "gulp-sequence": "^0.4.1",
+    "gulp-size": "^2.0.0",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^1.4.0",
+    "gulp-util": "^3.0.6",
+    "node-static": "^0.7.7",
+    "uglify-js": "^2.4.24",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "start": "static -c 1 build/",
+    "watch": "gulp watch --debug",
+    "dev": "npm start & npm run watch"
+  },
+  "author": "Andriy Kornatskyy"
+}
