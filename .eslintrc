@@ -1,0 +1,33 @@
+{
+    "rules": {
+        "indent": [
+            2,
+            4
+        ],
+        "strict": [
+            1,
+            "global"
+        ],
+        "no-extra-parens": 0,
+        "no-unused-vars": [
+            2,
+            {"vars": "all", "args": "after-used"}
+        ]
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "defaults/configurations/google",
+        "defaults/rules/eslint/best-practices/walmart"
+    ],
+    "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true
+    },
+    "plugins": [
+        "react"
+    ]
+}
