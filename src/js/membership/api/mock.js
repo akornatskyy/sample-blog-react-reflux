@@ -39,5 +39,9 @@ module.exports = {
 
     signout: function() {
         return _.resolve({code: 200});
+    },
+
+    user: function() {
+        return _.reject();
     }
 };
