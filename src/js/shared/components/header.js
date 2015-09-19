@@ -19,12 +19,14 @@ module.exports = React.createClass({
     mixins: [Router.State],
 
     render: function() {
-        var auth;
+        var auth = this.props.user;
 
-        if (this.props.user) {
-            auth = <NavItem onClick={actions.signout}>Sign out</NavItem>;
-        } else if (!this.isActive('signin')) {
-            auth = <NavItemLink to="signin">Sign in</NavItemLink>;
+        if (auth !== undefined) {
+            if (auth) {
+                auth = <NavItem onClick={actions.signout}>Sign out</NavItem>;
+            } else if (!this.isActive('signin')) {
+                auth = <NavItemLink to="signin">Sign in</NavItemLink>;
+            }
         }
 
         // <Navbar brand={<a href="/">Keep It Simple Blog</a>}
