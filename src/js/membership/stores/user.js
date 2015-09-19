@@ -34,5 +34,13 @@ module.exports = Reflux.createStore({
 
     onSignoutCompleted: function() {
         this.trigger({errors: null, pending: false, user: null});
+    },
+
+    onUserCompleted: function(user) {
+        this.trigger({user: user});
+    },
+
+    onUserFailed: function() {
+        this.trigger({user: null});
     }
 });
