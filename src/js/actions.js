@@ -10,6 +10,7 @@ module.exports = Reflux.createActions({
     signin: _,
     signout: _,
     signup: _,
+    user: _,
 
     // region: posts
     addPostComment: _,
