@@ -25,7 +25,7 @@ var App = React.createClass({
     mixins: [Reflux.connect(userStore)],
 
     getInitialState: function() {
-        return {user: null};
+        return {user: undefined};
     },
 
     render: function() {
@@ -53,8 +53,9 @@ var routes = (
     </Route>
 );
 
-actions.searchPosts();
 actions.loadDailyQuote();
+actions.searchPosts();
+actions.user();
 
 Router.run(routes, Router.HistoryLocation, function(Root) {
     React.render(<Root/>, document.body);
