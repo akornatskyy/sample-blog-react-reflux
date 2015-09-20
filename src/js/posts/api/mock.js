@@ -17,6 +17,7 @@ module.exports = {
         var posts = samples.posts;
 
         if (q) {
+            q = q.toLowerCase();
             posts = _.nfilter(posts, (page + 1) * 2 + 1, function(p) {
                 return p.title.toLowerCase().indexOf(q) > -1;
             });
