@@ -9,7 +9,8 @@ module.exports = {
     },
 
     loadPost: function(slug) {
-        return $.get('/api/v1/post/' + slug);
+        return $.get('/api/v1/post/' + slug +
+                     '?fields=permissions,comments');
     },
 
     addPostComment: function() {
