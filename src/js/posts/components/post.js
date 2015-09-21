@@ -63,10 +63,10 @@ var CommentWell = React.createClass({
     handleSubmit: function(e) {
         e.preventDefault();
         if (this.props.onSubmit) {
-            var c = this.refs.comment.getInputDOMNode().value.trim();
+            var m = this.refs.message.getInputDOMNode().value.trim();
 
-            if (c) {
-                this.props.onSubmit(c);
+            if (m) {
+                this.props.onSubmit(m);
             }
         }
     },
@@ -99,7 +99,7 @@ var CommentWell = React.createClass({
                     <h4>Leave a Comment:</h4>
                     <form autoComplete="off"
                           onSubmit={!disabled && this.handleSubmit}>
-                        <Input ref="comment" type="textarea" rows="3" />
+                        <Input ref="message" type="textarea" rows="3" />
                         <Button disabled={disabled} bsStyle="primary"
                                 type="submit">
                             Submit
@@ -172,8 +172,8 @@ module.exports = React.createClass({
                       this.onAddPostCommentCompleted);
     },
 
-    handleSubmit: function(comment) {
-        actions.addPostComment(comment);
+    handleSubmit: function(message) {
+        actions.addPostComment(this.state.post.slug, message);
     },
 
     onAddPostCommentCompleted: function() {
