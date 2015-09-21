@@ -13,6 +13,8 @@ module.exports = {
                      '?fields=permissions,comments');
     },
 
-    addPostComment: function() {
+    addPostComment: function(slug, message) {
+        return $.post('/api/v1/post/' + slug + '/comments',
+                      {message: message});
     }
 };
