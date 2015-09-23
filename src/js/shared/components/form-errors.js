@@ -20,7 +20,9 @@ module.exports = React.createClass({
         if (errors) {
             errors = errors.__ERROR__;
             if (errors) {
-                errors = errors[errors.length - 1];
+                if (Array.isArray(errors)) {
+                    errors = errors[errors.length - 1];
+                }
                 errors = <Alert bsStyle="danger">
                     <Glyphicon glyph="exclamation-sign" /> {errors}
                 </Alert>;
@@ -52,9 +54,12 @@ module.exports = React.createClass({
                     var errors = this.props.errors[name];
 
                     if (errors) {
+                        if (Array.isArray(errors)) {
+                            errors = errors[errors.length - 1];
+                        }
                         return React.cloneElement(child, {
                             groupClassName: 'has-error',
-                            help: errors[errors.length - 1]
+                            help: errors
                         });
                     }
                 }
