@@ -8,8 +8,8 @@ install:
 
 env:
     - OPTIONS=--api=mock
-    - OPTIONS=--api=mock
-    - OPTIONS=--api=web --debug
+    - OPTIONS=--api=mock --debug
+    - OPTIONS=--api=web
     - OPTIONS=--api=web --debug
 
 script:
