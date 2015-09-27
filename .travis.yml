@@ -7,10 +7,10 @@ install:
     - npm i
 
 env:
-    - OPTIONS=--api=mock
-    - OPTIONS=--api=mock --debug
-    - OPTIONS=--api=web
-    - OPTIONS=--api=web --debug
+    - OPTIONS='--api=mock'
+    - OPTIONS='--api=mock --debug'
+    - OPTIONS='--api=web'
+    - OPTIONS='--api=web --debug'
 
 script:
     - gulp $OPTIONS
