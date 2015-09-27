@@ -6,6 +6,12 @@ node_js:
 install:
     - npm i
 
+env:
+    matrix:
+        - API=--api=mock
+        - API=--api=web
+        - DEBUG=--debug
+        - DEBUG=
 script:
-    - gulp
+    - gulp $API $DEBUG
     - gulp eslint
