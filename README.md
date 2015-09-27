@@ -1,5 +1,7 @@
 # React Blog Sample
 
+[![Code Climate](https://codeclimate.com/github/akornatskyy/sample-blog-react/badges/gpa.svg)](https://codeclimate.com/github/akornatskyy/sample-blog-react)
+
 A simple blog written using [react](http://facebook.github.io/react/) and
 [reflux](https://github.com/reflux/refluxjs) demonstrating
 unidirectional dataflow architecture inspired
