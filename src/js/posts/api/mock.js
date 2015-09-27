@@ -61,21 +61,21 @@ module.exports = {
                 create_comment: p.permissions && p.permissions.create_comment
             },
             comments: samples.comments.filter(function(c) {
-                    return c.post_id === p.id;
-                }).map(function(c) {
-                    var a = findUserById(c.author_id);
+                return c.post_id === p.id;
+            }).map(function(c) {
+                var a = findUserById(c.author_id);
 
-                    return {
-                        author: {
-                            first_name: a.first_name,
-                            last_name: a.last_name,
-                            gravatar_hash: a.gravatar_hash
-                        },
-                        created_on: c.created_on,
-                        message: c.message,
-                        moderated: c.moderated
-                    };
-                })
+                return {
+                    author: {
+                        first_name: a.first_name,
+                        last_name: a.last_name,
+                        gravatar_hash: a.gravatar_hash
+                    },
+                    created_on: c.created_on,
+                    message: c.message,
+                    moderated: c.moderated
+                };
+            })
         });
     },
 
