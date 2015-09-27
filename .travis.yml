@@ -7,11 +7,11 @@ install:
     - npm i
 
 env:
-    matrix:
-        - API=--api=mock
-        - API=--api=web
-        - DEBUG=--debug
-        - DEBUG=
+    - OPTIONS=--api=mock
+    - OPTIONS=--api=mock
+    - OPTIONS=--api=web --debug
+    - OPTIONS=--api=web --debug
+
 script:
-    - gulp $API $DEBUG
+    - gulp $OPTIONS
     - gulp eslint
