@@ -8,7 +8,7 @@
     "jquery": "^1.11.3",
     "moment": "^2.10.6",
     "react": "^0.13.3",
-    "react-bootstrap": "^0.25.1",
+    "react-bootstrap": "^0.26.4",
     "react-router": "^0.13.3",
     "react-router-bootstrap": "^0.18.1",
     "reflux": "^0.2.12"
@@ -19,7 +19,7 @@
     "browserify": "^11.1.0",
     "del": "^2.0.2",
     "eslint": "^1.4.1",
-    "eslint-config-defaults": "^6.0.0",
+    "eslint-config-defaults": "^7.0.1",
     "eslint-plugin-react": "^3.3.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.1",
