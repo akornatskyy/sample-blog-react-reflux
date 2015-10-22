@@ -35,7 +35,7 @@ module.exports = {
     },
 
     first: function(items, predicate) {
-        for (var i in items) {
+        for (var i = 0; i < items.length; i++) {
             var d = items[i];
 
             if (predicate(d)) {
@@ -49,7 +49,7 @@ module.exports = {
     nfilter: function(items, n, predicate) {
         var r = [];
 
-        for (var i in items) {
+        for (var i = 0; i < items.length; i++) {
             var d = items[i];
 
             if (predicate(d)) {
