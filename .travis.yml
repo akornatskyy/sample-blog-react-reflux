@@ -1,16 +1,16 @@
 language: node_js
 
 node_js:
-    - "0.12"
+    - "6"
+    - "7"
+    - "8"
 
 install:
     - npm i
 
 env:
     - OPTIONS='--api=mock'
-    - OPTIONS='--api=mock --debug'
     - OPTIONS='--api=web'
-    - OPTIONS='--api=web --debug'
 
 script:
     - gulp $OPTIONS

@@ -10,10 +10,17 @@ by [flux](https://facebook.github.io/flux/docs/overview.html).
 
 ## Setup
 
-Install dependencies with [npm](https://www.npmjs.com) and build
-resources:
+Install dependencies with [npm](https://www.npmjs.com):
 
-    npm i && npm run build
+    npm
+
+Build resources for *mock* api strategy:
+
+    npm run build
+
+or *web* (optionally specify web API host):
+
+    api=web host=http://api.local:8080 npm run build
 
 ## Run
 

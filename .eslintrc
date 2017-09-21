@@ -1,9 +1,5 @@
 {
     "rules": {
-        "indent": [
-            2,
-            4
-        ],
         "strict": [
             1,
             "global"
@@ -11,8 +7,35 @@
         "no-extra-parens": 0,
         "no-unused-vars": [
             2,
-            {"vars": "all", "args": "after-used"}
-        ]
+            {
+              "vars": "all",
+              "args": "after-used"
+            }
+        ],
+        "linebreak-style": 0,
+        "eol-last": 0,
+        "arrow-parens": 0,
+        "comma-dangle": 0,
+        "require-jsdoc": 0,
+        "no-console": [
+            "error",
+            {
+                allow: [
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "indent": 0,
+        "no-undef": 0,
+        "spaced-comment": 0,
+        "guard-for-in": 0,
+        "react/no-string-refs": 0,
+        "react/display-name": 0,
+        "react/no-deprecated": 0,
+        "react/no-find-dom-node": 0,
+        "no-var": 0,
+        "one-var": 0
     },
     "env": {
         "browser": true,
@@ -20,13 +43,9 @@
     },
     "extends": [
         "eslint:recommended",
-        "defaults/configurations/google",
-        "defaults/rules/eslint/best-practices/walmart"
+        "google",
+        "plugin:react/recommended"
     ],
-    "ecmaFeatures": {
-        "jsx": true,
-        "experimentalObjectRestSpread": true
-    },
     "plugins": [
         "react"
     ]

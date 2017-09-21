@@ -1,12 +1,10 @@
 'use strict';
 
-var $ = require('jquery');
+var $ = require('../../shared/ajax');
 
 
 module.exports = {
     dailyquote: function() {
-        return $.ajax({
-            url: '/api/v1/quote/daily'
-        });
+        return $.get('/api/v1/quote/daily');
     }
 };

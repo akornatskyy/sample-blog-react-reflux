@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     del = require('del'),
     eslint = require('gulp-eslint'),
     html = require('gulp-minify-html'),
+    replace = require('gulp-replace'),
     sass = require('gulp-sass'),
     seq = require('gulp-sequence'),
     size = require('gulp-size'),
@@ -18,9 +19,9 @@ var gulp = require('gulp'),
 
 
 var debug = util.env.debug,
-    api = util.env.api || 'mock',
+    api = process.env.api || util.env.api || 'mock',
+    host = process.env.host || util.env.host || '',
     pkg = require('./package.json');
-
 
 gulp.task('clean-dist', function() {
     return del('./dist');
@@ -34,7 +35,7 @@ gulp.task('js', function() {
     var opt = {
         bundleExternal: false,
         debug: debug,
-        transform: [babelify]
+        transform: [[babelify, {'presets': ['es2015', 'react']}]]
     };
 
     return browserify(pkg.main, opt)
@@ -45,6 +46,8 @@ gulp.task('js', function() {
         })
         .bundle()
         .pipe(source('app.js'))
+        .pipe(api === 'mock' || host === '' ? util.noop() :
+            replace('var host = \'\';', 'var host = \'' + host + '\';'))
         .pipe(debug ? util.noop() : streamify(uglify()))
         .pipe(gulp.dest('build/js'))
         .pipe(size({showFiles: true}));

@@ -2,23 +2,36 @@
 
 var $ = require('jquery');
 
+var host = '';
 
 module.exports = {
-    get: function(url, data) {
+    get: function(path, data) {
         return $.ajax({
-            url: url,
-            data: data
+            url: host + path,
+            data: data,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            xhrFields: {
+                withCredentials: true
+            }
         });
     },
 
-    post: function(url, data) {
+    post: function(path, data) {
         return new Promise(function(resolve, reject) {
             $.ajax({
                 type: 'POST',
-                url: url,
+                url: host + path,
                 data: JSON.stringify(data),
                 contentType: 'application/json; charset=utf-8',
-                dataType: 'json'
+                dataType: 'json',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                xhrFields: {
+                    withCredentials: true
+                }
             })
             .done(resolve)
             .fail(function(x) {
