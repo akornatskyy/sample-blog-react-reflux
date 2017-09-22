@@ -99,14 +99,12 @@ gulp.task('watch', ['eslint', 'js', 'css', 'html'], function() {
 });
 
 gulp.task('rev', function() {
-    var Rev = require('gulp-rev-all'),
-        r = new Rev({
+    var revision = require('gulp-rev-all');
+    return gulp.src('build/**/*')
+        .pipe(revision.revision({
             dontRenameFile: ['.html'],
             hashLength: 6
-        });
-
-    return gulp.src('build/**/*')
-        .pipe(r.revision())
+        }))
         .pipe(gulp.dest('dist'));
 });
 
