@@ -1,22 +1,20 @@
-'use strict';
+import React from 'react';
+import Reflux from 'reflux';
+import {Well} from 'react-bootstrap';
 
-var React = require('react'),
-    ReactBootstrap = require('react-bootstrap'),
-    Reflux = require('reflux');
-
-var quoteStore = require('../stores/quote');
+import quoteStore from '../stores/quote';
 
 
-var Well = ReactBootstrap.Well;
+class QuoteWell extends Reflux.Component {
+    constructor(props) {
+        super(props);
+        this.store = quoteStore;
+    }
 
+    render() {
+        const quote = this.state.quote;
 
-module.exports = React.createClass({
-    mixins: [Reflux.connect(quoteStore)],
-
-    render: function() {
-        var q = this.state;
-
-        if (!q) {
+        if (!quote) {
             return null;
         }
 
@@ -24,10 +22,12 @@ module.exports = React.createClass({
             <Well>
                 <h4>Quote of the Day</h4>
                 <p>
-                    <q>{q.message}</q>
-                    <i> — {q.author}</i>
+                    <q>{quote.message}</q>
+                    <i> — {quote.author}</i>
                 </p>
             </Well>
         );
     }
-});
+}
+
+export default QuoteWell;

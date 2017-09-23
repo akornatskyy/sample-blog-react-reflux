@@ -1,60 +1,58 @@
-'use strict';
-
-var React = require('react'),
-    ReactBootstrap = require('react-bootstrap');
-
-
-var Pager = ReactBootstrap.Pager,
-    PageItem = ReactBootstrap.PageItem;
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Pager} from 'react-bootstrap';
 
 
-module.exports = React.createClass({
-    propTypes: {
-        disabled: React.PropTypes.bool,
-        paging: React.PropTypes.object,
-        onSelect: React.PropTypes.func
-    },
+const Paging = ({pending, paging, onSelect}) => {
+    let newer;
+    let older;
 
-    getDefaultProps: function() {
-        return {disabled: false};
-    },
+    if (!paging) {
+        return null;
+    }
 
-    render: function() {
-        var newer, older,
-            disabled = this.props.disabled,
-            paging = this.props.paging;
-
-        if (!paging) {
-            return null;
-        }
-
-        if (paging.before !== undefined) {
-            newer = (
-                <PageItem previous disabled={disabled}
-                          eventKey={paging.before}>
-                    &larr; Newer
-                </PageItem>
-            );
-        }
-
-        if (paging.after !== undefined) {
-            older = (
-                <PageItem next disabled={disabled}
-                          eventKey={paging.after}>
-                    Older &rarr;
-                </PageItem>
-            );
-        }
-
-        if (!newer && !older) {
-            return null;
-        }
-
-        return (
-            <Pager onSelect={this.props.onSelect}>
-                {newer}
-                {older}
-            </Pager>
+    if (paging.before !== undefined) {
+        newer = (
+            <Pager.Item previous disabled={pending}
+                eventKey={paging.before}>
+                &larr; Newer
+            </Pager.Item>
         );
     }
-});
+
+    if (paging.after !== undefined) {
+        older = (
+            <Pager.Item next disabled={pending}
+                eventKey={paging.after}>
+                Older &rarr;
+            </Pager.Item>
+        );
+    }
+
+    if (!newer && !older) {
+        return null;
+    }
+
+    return (
+        <Pager onSelect={onSelect}>
+            {newer}
+            {older}
+        </Pager>
+    );
+};
+
+Paging.propTypes = {
+    pending: PropTypes.bool,
+    paging: PropTypes.shape({
+        before: PropTypes.number,
+        after: PropTypes.number
+    }),
+    onSelect: PropTypes.func
+};
+
+Paging.defaultProps = {
+    pending: false,
+    paging: {}
+};
+
+export default Paging;

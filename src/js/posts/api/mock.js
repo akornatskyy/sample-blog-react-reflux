@@ -1,89 +1,78 @@
-'use strict';
-
-var _ = require('../../shared/mock'),
-    samples = require('./samples.json'),
-    msamples = require('../../membership/api/samples.json');
+import * as _ from '../../shared/mock';
+import samples from './samples.json';
+import msamples from '../../membership/api/samples.json';
 
 
-function findUserById(id) {
-    return _.first(msamples.users, function(u) {
-        return u.id === id;
-    });
-}
+const findUserById = id => _.first(msamples.users, u => u.id === id);
 
-module.exports = {
-    searchPosts: function(q, page) {
-        page = page || 0;
-        var posts = samples.posts;
+export default {
+    searchPosts: (q = null, page = 0) => {
+        let posts = samples.posts;
 
         if (q) {
             q = q.toLowerCase();
-            posts = _.nfilter(posts, (page + 1) * 2 + 1, function(p) {
-                return p.title.toLowerCase().indexOf(q) > -1;
-            });
+            posts = _.nfilter(
+                posts,
+                (page + 1) * 2 + 1,
+                p => p.title.toLowerCase().indexOf(q) > -1);
         }
 
-        return _.resolve(_.pager(posts, page, 2, function(p) {
-            var a = findUserById(p.author_id);
+        return _.resolve(_.pager(posts, page, 2, p => {
+            const a = findUserById(p.author_id);
 
             return {
-                slug: p.slug,
-                title: p.title,
-                author: {
-                    first_name: a.first_name, last_name: a.last_name
+                'slug': p.slug,
+                'title': p.title,
+                'author': {
+                    'first_name': a.first_name,
+                    'last_name': a.last_name
                 },
-                created_on: p.created_on,
-                message: _.trancateWords(p.message, 40)
+                'created_on': p.created_on,
+                'message': _.trancateWords(p.message, 40)
             };
         }));
     },
 
-    loadPost: function(slug) {
-        var p = _.first(samples.posts, function(p) {
-            return p.slug === slug;
-        });
+    getPost: slug => {
+        const p = _.first(samples.posts, p => p.slug === slug);
 
         if (!p) {
             return _.reject();
         }
 
-        var a = findUserById(p.author_id);
+        const a = findUserById(p.author_id);
 
         return _.resolve({
-            slug: p.slug,
-            title: p.title,
-            created_on: p.created_on,
-            author: {
-                first_name: a.first_name, last_name: a.last_name
+            'slug': p.slug,
+            'title': p.title,
+            'created_on': p.created_on,
+            'author': {
+                'first_name': a.first_name,
+                'last_name': a.last_name
             },
-            message: p.message,
-            permissions: {
-                create_comment: p.permissions && p.permissions.create_comment
+            'message': p.message,
+            'permissions': {
+                'create_comment': p.permissions && p.permissions.create_comment
             },
-            comments: samples.comments.filter(function(c) {
-                return c.post_id === p.id;
-            }).map(function(c) {
-                var a = findUserById(c.author_id);
+            'comments': samples.comments.filter(c => c.post_id === p.id).map(
+                c => {
+                    const ca = findUserById(c.author_id);
 
-                return {
-                    author: {
-                        first_name: a.first_name,
-                        last_name: a.last_name,
-                        gravatar_hash: a.gravatar_hash
-                    },
-                    created_on: c.created_on,
-                    message: c.message,
-                    moderated: c.moderated
-                };
-            })
+                    return {
+                        'author': {
+                            'first_name': ca.first_name,
+                            'last_name': ca.last_name,
+                            'gravatar_hash': ca.gravatar_hash
+                        },
+                        'created_on': c.created_on,
+                        'message': c.message,
+                        'moderated': c.moderated
+                    };
+                })
         });
     },
 
-    addPostComment: function() {
-        return _.resolve({code: 201});
+    addComment: function() {
+        return _.resolve();
     }
 };
-
-/*
- eslint camelcase:0
-*/

@@ -1,10 +1,8 @@
-'use strict';
-
-var $ = require('../../shared/ajax');
+import $ from '../../shared/ajax';
 
 
-module.exports = {
-    dailyquote: function() {
+export default {
+    dailyQuote: function() {
         return $.get('/api/v1/quote/daily');
     }
 };

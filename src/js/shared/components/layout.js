@@ -1,35 +1,29 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Row, Col} from 'react-bootstrap';
 
-var React = require('react'),
-    ReactBootstrap = require('react-bootstrap');
-
-var QuoteWell = require('./quote-well');
-
-
-var Row = ReactBootstrap.Row,
-    Col = ReactBootstrap.Col;
+import QuoteWell from './quote-well';
 
 
-module.exports = React.createClass({
-    propTypes: {
-        sidebar: React.PropTypes.node
-    },
+const Layout = ({children, sidebar}) => (
+    <Row>
+        <Col md={8}>
+            <article>
+                {children}
+            </article>
+        </Col>
+        <Col md={4}>
+            <aside>
+                {sidebar}
+                <QuoteWell />
+            </aside>
+        </Col>
+    </Row>
+);
 
-    render: function() {
-        return (
-            <Row>
-                <Col md={8}>
-                    <article>
-                        {this.props.children}
-                    </article>
-                </Col>
-                <Col md={4}>
-                    <aside>
-                        {this.props.sidebar}
-                        <QuoteWell/>
-                    </aside>
-                </Col>
-            </Row>
-        );
-    }
-});
+Layout.propTypes = {
+    children: PropTypes.node,
+    sidebar: PropTypes.node
+};
+
+export default Layout;

@@ -1,83 +1,64 @@
-'use strict';
+export const resolve = (r, timeout) => new Promise(resolve =>
+    setTimeout(() => resolve(r), timeout || 100));
 
+export const reject = (r, timeout) => new Promise((resolve, reject) =>
+    setTimeout(() => reject(r), timeout || 100));
 
-module.exports = {
-    trancateWords: function(s, count) {
-        s = s.split(/\s|\\n/).slice(0, count);
-        if (s.length === count) {
-            s.push('...');
+export const trancateWords = (s, count) => {
+    s = s.split(/\s|\\n/).slice(0, count);
+    if (s.length === count) {
+        s.push('...');
+    }
+
+    return s.join(' ');
+};
+
+export const first = (items, predicate) => {
+    for (let d of items) {
+        if (predicate(d)) {
+            return d;
         }
+    }
 
-        return s.join(' ');
-    },
+    return null;
+};
 
-    pager: function(items, page, size, f) {
-        var start = page * size,
-            end = start + size,
-            paging = {},
-            r = [];
+export const nfilter = (items, n, predicate) => {
+    const r = [];
 
-        if (page > 0) {
-            paging.before = page - 1;
-        }
-
-        if (end < items.length) {
-            paging.after = page + 1;
-        } else {
-            end = items.length;
-        }
-
-        for (var i = start; i < end; i++) {
-            r.push(f(items[i]));
-        }
-
-        return {paging: paging, items: r};
-    },
-
-    first: function(items, predicate) {
-        for (var i = 0; i < items.length; i++) {
-            var d = items[i];
-
-            if (predicate(d)) {
-                return d;
-            }
-        }
-
-        return null;
-    },
-
-    nfilter: function(items, n, predicate) {
-        var r = [];
-
-        for (var i = 0; i < items.length; i++) {
-            var d = items[i];
-
-            if (predicate(d)) {
-                r.push(d);
-                n -= 1;
-            }
+    for (let d of items) {
+        if (predicate(d)) {
+            r.push(d);
+            n -= 1;
 
             if (!n) {
                 break;
             }
         }
-
-        return r;
-    },
-
-    resolve: function(r, timeout) {
-        return new Promise(function(resolve) {
-            setTimeout(function() {
-                resolve(r);
-            }, timeout || 100);
-        });
-    },
-
-    reject: function(r, timeout) {
-        return new Promise(function(resolve, reject) {
-            setTimeout(function() {
-                reject(r);
-            }, timeout || 100);
-        });
     }
+
+    return r;
+};
+
+export const pager = (items, page, size, f) => {
+    const start = page * size;
+    let end = start + size;
+    const paging = {};
+    const r = [];
+
+    if (page > 0) {
+        paging.before = page - 1;
+    }
+
+    if (end < items.length) {
+        paging.after = page + 1;
+    } else {
+        end = items.length;
+    }
+
+    for (let i = start; i < end; i++) {
+        r.push(f(items[i]));
+    }
+
+    return {paging: paging, items: r};
 };

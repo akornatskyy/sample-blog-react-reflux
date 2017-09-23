@@ -1,29 +1,28 @@
-'use strict';
-
-var React = require('react'),
-    ReactBootstrap = require('react-bootstrap'),
-    ReactRouter = require('react-router');
-
-
-var Well = ReactBootstrap.Well,
-    Link = ReactRouter.Link;
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Link} from 'react-router';
+import {Well} from 'react-bootstrap';
 
 
-module.exports = React.createClass({
-    render: function() {
-        if (this.props.user) {
-            return null;
-        }
-
-        return (
-            <Well>
-                <h4>Got account already?</h4>
-                <p>
-                    <Link to="signin">Sign in</Link>, please.
-                    Your opinions and comments would be greatly
-                    appreciated.
-                </p>
-            </Well>
-        );
+const SignInWell = ({user}) => {
+    if (user) {
+        return null;
     }
-});
+
+    return (
+        <Well>
+            <h4>Got account already?</h4>
+            <p>
+                <Link to="/signin">Sign in</Link>, please.
+                Your opinions and comments would be greatly
+                appreciated.
+            </p>
+        </Well>
+    );
+};
+
+SignInWell.propTypes = {
+    user: PropTypes.object
+};
+
+export default SignInWell;

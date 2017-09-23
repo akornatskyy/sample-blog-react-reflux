@@ -1,69 +1,111 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Reflux from 'reflux';
+import {Link} from 'react-router';
+import {Well, FormGroup, FormControl, Button} from 'react-bootstrap';
 
-var React = require('react'),
-    ReactBootstrap = require('react-bootstrap'),
-    ReactRouter = require('react-router'),
-    Reflux = require('reflux');
+import Errors from '../../shared/components/errors';
+import Layout from '../../shared/components/layout';
+import SignInWell from '../../shared/components/signin-well';
+import AccessWarn from './access-warn';
 
-var _ = require('../../shared/utils'),
-    FormErrors = require('../../shared/components/form-errors'),
-    Layout = require('../../shared/components/layout'),
-    SignInWell = require('../../shared/components/signin-well');
-
-var actions = require('../actions'),
-    userStore = require('../stores/user'),
-    AccessWarn = require('./access-warn');
+import userStore from '../stores/user';
+import actions from '../actions';
 
 
-var Well = ReactBootstrap.Well,
-    Input = ReactBootstrap.Input,
-    Button = ReactBootstrap.Button,
-    Link = ReactRouter.Link;
+class SignUp extends Reflux.Component {
+    constructor(props) {
+        super(props);
+        this.store = userStore;
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
+    componentWillMount() {
+        super.componentWillMount();
+        actions.signout();
+    }
 
-module.exports = React.createClass({
-    mixins: [
-        Reflux.connect(userStore),
-    ],
+    getChildContext() {
+        return {errors: this.state.errors};
+    }
 
-    handleSubmit: function(e) {
+    handleSubmit(e) {
         e.preventDefault();
-        actions.signup(_.pack(this.refs.form));
-    },
+        actions.signup({
+            'email': this.email.value,
+            'username': this.username.value,
+            'password': this.password.value,
+            'confirm_password': this.confirmPassword.value
+        });
+    }
 
-    render: function() {
-        var disabled = this.state.pending;
+    render() {
+        const {pending, errors} = this.state;
 
         return (
             <Layout sidebar={<SignInWell/>}>
                 <h1>Sign Up</h1>
                 <p>
-                    Already got an account? <Link to="signin">Sign in</Link>,
+                    Already got an account? <Link to="/signin">Sign in</Link>,
                     please.
                 </p>
-                <hr />
-                <FormErrors errors={this.state.errors}>
-                    <Well>
-                        <form ref="form" autoComplete="off"
-                              onSubmit={!disabled && this.handleSubmit}>
-                            <Input name="email" placeholder="Email"
-                                   type="text" />
-                            <Input name="username" placeholder="Username"
-                                   type="text" />
-                            <Input name="password" placeholder="Password"
-                                   type="password" />
-                            <Input name="confirm_password"
-                                   placeholder="Confirm Password"
-                                   type="password" />
-                            <Button disabled={disabled} bsStyle="primary"
-                                    type="submit">
-                                Sign Up
-                            </Button>
-                        </form>
-                    </Well>
-                </FormErrors>
-                <AccessWarn/>
+                <hr/>
+                <Errors.Summary />
+                <Well>
+                    <form autoComplete="off"
+                        onSubmit={!pending && this.handleSubmit}>
+                        <FormGroup validationState={errors.email && 'error'}>
+                            <FormControl
+                                inputRef={ref => {
+                                    this.email = ref;
+                                }}
+                                placeholder="Email" type="text" />
+                            <FormControl.Feedback />
+                            <Errors.Field name="email" />
+                        </FormGroup>
+                        <FormGroup validationState={errors.username && 'error'}>
+                            <FormControl
+                                inputRef={ref => {
+                                    this.username = ref;
+                                }}
+                                placeholder="Username" type="text" />
+                            <FormControl.Feedback />
+                            <Errors.Field name="username" />
+                        </FormGroup>
+                        <FormGroup validationState={errors.password && 'error'}>
+                            <FormControl
+                                inputRef={ref => {
+                                    this.password = ref;
+                                }}
+                                placeholder="Password" type="password" />
+                            <FormControl.Feedback />
+                            <Errors.Field name="password" />
+                        </FormGroup>
+                        <FormGroup validationState={
+                            errors.confirm_password && 'error'}>
+                            <FormControl inputRef={
+                                ref => {
+                                    this.confirmPassword = ref;
+                                }}
+                            placeholder="Confirm Password"
+                            type="confirm_password" />
+                            <FormControl.Feedback />
+                            <Errors.Field name="confirm_password" />
+                        </FormGroup>
+                        <Button disabled={pending} bsStyle="primary"
+                            type="submit">
+                            Sign Up
+                        </Button>
+                    </form>
+                </Well>
+                <AccessWarn />
             </Layout>
         );
     }
-});
+}
+
+SignUp.childContextTypes = {
+    errors: PropTypes.object.isRequired
+};
+
+export default SignUp;

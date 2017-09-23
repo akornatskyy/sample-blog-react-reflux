@@ -1,27 +1,25 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-var React = require('react');
 
+const Media = ({src, heading, children}) => (
+    <article className="media">
+        <a className="media-left">
+            <img className="media-object" src={src} />
+        </a>
+        <div className="media-body">
+            <h4 className="media-heading">
+                {heading}
+            </h4>
+            {children}
+        </div>
+    </article>
+);
 
-module.exports = React.createClass({
-    propTypes: {
-        src: React.PropTypes.string.isRequired,
-        heading: React.PropTypes.node.isRequired
-    },
+Media.propTypes = {
+    src: PropTypes.string.isRequired,
+    heading: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired
+};
 
-    render: function() {
-        return (
-            <article className="media">
-                <a className="media-left">
-                    <img className="media-object" src={this.props.src} />
-                </a>
-                <div className="media-body">
-                    <h4 className="media-heading">
-                        {this.props.heading}
-                    </h4>
-                    {this.props.children}
-                </div>
-            </article>
-        );
-    }
-});
+export default Media;

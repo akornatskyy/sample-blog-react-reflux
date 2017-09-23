@@ -1,11 +1,11 @@
-'use strict';
+import Reflux from 'reflux';
+import refluxPromise from 'reflux-promise';
 
-var Reflux = require('reflux');
+Reflux.use(refluxPromise(window.Promise));
 
-var _ = {sync: true, children: ['completed', 'failed']};
+const _ = {sync: true, children: ['completed', 'failed']};
 
-
-module.exports = Reflux.createActions({
+export default Reflux.createActions({
     // region: membership
     signin: _,
     signout: _,
@@ -14,10 +14,9 @@ module.exports = Reflux.createActions({
 
     // region: posts
     addPostComment: _,
-    loadPost: _,
-    reloadPost: _,
+    getPost: _,
     searchPosts: _,
 
     // region: shared
-    loadDailyQuote: _
+    getDailyQuote: _
 });

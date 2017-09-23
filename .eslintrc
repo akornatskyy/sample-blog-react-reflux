@@ -1,52 +1,60 @@
 {
-    "rules": {
-        "strict": [
-            1,
-            "global"
-        ],
-        "no-extra-parens": 0,
-        "no-unused-vars": [
-            2,
-            {
-              "vars": "all",
-              "args": "after-used"
-            }
-        ],
-        "linebreak-style": 0,
-        "eol-last": 0,
-        "arrow-parens": 0,
-        "comma-dangle": 0,
-        "require-jsdoc": 0,
-        "no-console": [
-            "error",
-            {
-                allow: [
-                    "warn",
-                    "error"
-                ]
-            }
-        ],
-        "indent": 0,
-        "no-undef": 0,
-        "spaced-comment": 0,
-        "guard-for-in": 0,
-        "react/no-string-refs": 0,
-        "react/display-name": 0,
-        "react/no-deprecated": 0,
-        "react/no-find-dom-node": 0,
-        "no-var": 0,
-        "one-var": 0
-    },
-    "env": {
-        "browser": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "google",
-        "plugin:react/recommended"
+  "rules": {
+    "indent": [
+      2,
+      4
     ],
-    "plugins": [
-        "react"
+    "strict": [
+      1,
+      "global"
+    ],
+    "no-extra-parens": 0,
+    "no-unused-vars": [
+      2,
+      {
+        "vars": "all",
+        "args": "after-used"
+      }
+    ],
+    "linebreak-style": 0,
+    "eol-last": 0,
+    "arrow-parens": 0,
+    "comma-dangle": 0,
+    "require-jsdoc": 0,
+    "no-console": [
+      "error",
+      {
+        allow: [
+          "warn",
+          "error"
+          ]
+      }
     ]
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "globals": {
+    "Promise": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "jest": true
+  },
+  "plugins": [
+    "react"
+  ]
 }

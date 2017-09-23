@@ -1,47 +1,39 @@
-'use strict';
-
-var _ = require('../../shared/mock'),
-    samples = require('./samples.json');
+import {resolve, reject, first} from '../../shared/mock';
+import samples from './samples.json';
 
 
-module.exports = {
-    signin: function(credentials) {
-        var errors;
+export default {
+    signin: credentials => {
+        let errors;
 
-        if (!credentials.username) {
+        if (!credentials || !credentials.username) {
             errors = {username: [samples.errors.required]};
         }
 
-        if (!credentials.password) {
+        if (!credentials || !credentials.password) {
             errors = errors || {};
             errors.password = [samples.errors.required];
         }
 
         if (errors) {
-            return _.reject(errors);
+            return reject(errors);
         }
 
-        var u = _.first(samples.users, function(u) {
-            return (u.username === credentials.username &&
-                    u.password === credentials.password);
-        });
+        const u = first(
+            samples.users,
+            u => (u.username === credentials.username &&
+                  u.password === credentials.password));
 
         if (!u) {
-            return _.reject({__ERROR__: [samples.errors.signin]});
+            return reject({__ERROR__: [samples.errors.signin]});
         }
 
-        return _.resolve({username: u.username});
+        return resolve({username: u.username});
     },
 
-    signup: function() {
-        return _.reject({__ERROR__: [samples.errors.unavailable]});
-    },
+    signup: () => reject({__ERROR__: [samples.errors.unavailable]}),
 
-    signout: function() {
-        return _.resolve({code: 200});
-    },
+    signout: resolve,
 
-    user: function() {
-        return _.reject();
-    }
+    user: reject
 };

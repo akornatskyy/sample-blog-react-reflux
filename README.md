@@ -2,17 +2,17 @@
 
 [![Build Status](https://travis-ci.org/akornatskyy/sample-blog-react.svg?branch=master)](https://travis-ci.org/akornatskyy/sample-blog-react)
 [![Code Climate](https://codeclimate.com/github/akornatskyy/sample-blog-react/badges/gpa.svg)](https://codeclimate.com/github/akornatskyy/sample-blog-react)
+[![Dependency Status](https://gemnasium.com/badges/github.com/akornatskyy/sample-blog-react.svg)](https://gemnasium.com/github.com/akornatskyy/sample-blog-react)
 
 A simple blog written using [react](http://facebook.github.io/react/) and
 [reflux](https://github.com/reflux/refluxjs) demonstrating
-unidirectional dataflow architecture inspired
-by [flux](https://facebook.github.io/flux/docs/overview.html).
+unidirectional dataflow architecture.
 
 ## Setup
 
 Install dependencies with [npm](https://www.npmjs.com):
 
-    npm
+    npm i
 
 Build resources for *mock* api strategy:
 
@@ -20,7 +20,8 @@ Build resources for *mock* api strategy:
 
 or *web* (optionally specify web API host):
 
-    api=web host=http://api.local:8080 npm run build
+    API=web npm run build
+    API=web HOST=http://api.local:8080 npm run build
 
 ## Run
 

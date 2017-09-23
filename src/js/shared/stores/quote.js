@@ -1,23 +1,18 @@
-'use strict';
+import Reflux from 'reflux';
 
-var Reflux = require('reflux');
-
-var actions = require('../actions');
+import actions from '../actions';
 
 
-module.exports = Reflux.createStore({
-    listenables: actions,
-
-    init: function() {
-        this.quote = null;
-    },
-
-    getInitialState: function() {
-        return this.quote;
-    },
-
-    onLoadDailyQuoteCompleted: function(quote) {
-        this.quote = quote;
-        this.trigger(quote);
+class QuoteStore extends Reflux.Store {
+    constructor() {
+        super();
+        this.state = {};
+        this.listenables = actions;
     }
-});
+
+    onGetDailyQuoteCompleted(quote) {
+        this.setState({quote: quote});
+    }
+}
+
+export default Reflux.initStore(QuoteStore);

@@ -1,11 +1,7 @@
-'use strict';
-
-var _ = require('../mock'),
-    samples = require('./samples.json');
+import {resolve} from '../mock';
+import samples from './samples.json';
 
 
-module.exports = {
-    dailyquote: function() {
-        return _.resolve(samples.quote);
-    }
+export default {
+    dailyQuote: () => resolve(samples.quote)
 };

@@ -9,9 +9,8 @@ install:
     - npm i
 
 env:
-    - OPTIONS='--api=mock'
-    - OPTIONS='--api=web'
+    - NODE_ENV=prod
 
 script:
-    - gulp $OPTIONS
-    - gulp eslint
+    - npm run lint
+    - npm run build

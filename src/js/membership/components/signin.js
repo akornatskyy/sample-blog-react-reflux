@@ -1,73 +1,97 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Reflux from 'reflux';
+import {Link} from 'react-router';
+import {Well, FormGroup, FormControl, Button} from 'react-bootstrap';
 
-var React = require('react'),
-    ReactBootstrap = require('react-bootstrap'),
-    ReactRouter = require('react-router'),
-    Reflux = require('reflux');
+import Errors from '../../shared/components/errors';
+import Layout from '../../shared/components/layout';
+import SignUpWell from '../../shared/components/signup-well';
+import AccessWarn from './access-warn';
 
-var _ = require('../../shared/utils'),
-    FormErrors = require('../../shared/components/form-errors'),
-    Layout = require('../../shared/components/layout'),
-    SignUpWell = require('../../shared/components/signup-well');
-
-var actions = require('../actions'),
-    userStore = require('../stores/user'),
-    AccessWarn = require('./access-warn');
+import userStore from '../stores/user';
+import actions from '../actions';
 
 
-var Button = ReactBootstrap.Button,
-    Input = ReactBootstrap.Input,
-    Link = ReactRouter.Link,
-    Well = ReactBootstrap.Well,
-    Navigation = ReactRouter.Navigation,
-    ListenerMixin = Reflux.ListenerMixin;
+class SignIn extends Reflux.Component {
+    constructor(props) {
+        super(props);
+        this.store = userStore;
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
+    componentWillMount() {
+        super.componentWillMount();
+        actions.signout();
+        this.unsubscribe = actions.signin.completed.listen(
+            this.props.router.goBack);
+    }
 
-module.exports = React.createClass({
-    mixins: [
-        Reflux.connect(userStore),
-        ListenerMixin,
-        Navigation
-    ],
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.unsubscribe();
+    }
 
-    componentDidMount: function() {
-        this.listenTo(actions.signin.completed, this.goBack);
-    },
+    getChildContext() {
+        return {errors: this.state.errors};
+    }
 
-    handleSubmit: function(e) {
+    handleSubmit(e) {
         e.preventDefault();
-        actions.signin(_.pack(this.refs.form));
-    },
+        actions.signin({
+            username: this.username.value,
+            password: this.password.value
+        });
+    }
 
-    render: function() {
-        var disabled = this.state.pending;
+    render() {
+        const {pending, errors} = this.state;
 
         return (
             <Layout sidebar={<SignUpWell/>}>
                 <h1>Sign In</h1>
                 <p>
-                    Need an account? <Link to="signup">Sign up</Link> free.
+                    Need an account? <Link to="/signup">Sign up</Link> free.
                     Your opinions and comments would be greatly
                     appreciated.
                 </p>
                 <hr/>
-                <FormErrors errors={this.state.errors}>
-                    <Well>
-                        <form ref="form" autoComplete="off"
-                              onSubmit={!disabled && this.handleSubmit}>
-                            <Input name="username" placeholder="Username"
-                                   type="text" />
-                            <Input name="password" placeholder="Password"
-                                   type="password" />
-                            <Button disabled={disabled} bsStyle="primary"
-                                    type="submit">
-                                Sign In
-                            </Button>
-                        </form>
-                    </Well>
-                </FormErrors>
-                <AccessWarn/>
+                <Errors.Summary />
+                <Well>
+                    <form autoComplete="off"
+                        onSubmit={!pending && this.handleSubmit}>
+                        <FormGroup validationState={errors.username && 'error'}>
+                            <FormControl
+                                inputRef={ref => {
+                                    this.username = ref;
+                                }}
+                                placeholder="Username" type="text" />
+                            <FormControl.Feedback />
+                            <Errors.Field name="username" />
+                        </FormGroup>
+                        <FormGroup validationState={errors.password && 'error'}>
+                            <FormControl
+                                inputRef={ref => {
+                                    this.password = ref;
+                                }}
+                                placeholder="Password" type="password" />
+                            <FormControl.Feedback />
+                            <Errors.Field name="password" />
+                        </FormGroup>
+                        <Button disabled={pending} bsStyle="primary"
+                            type="submit">
+                            Sign In
+                        </Button>
+                    </form>
+                </Well>
+                <AccessWarn />
             </Layout>
         );
     }
-});
+}
+
+SignIn.childContextTypes = {
+    errors: PropTypes.object.isRequired
+};
+
+export default SignIn;

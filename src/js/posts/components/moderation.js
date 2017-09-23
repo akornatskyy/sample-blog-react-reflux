@@ -1,43 +1,39 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-var React = require('react'),
-    ReactRouter = require('react-router'),
-    Reflux = require('reflux');
+import Layout from '../../shared/components/layout';
 
-var Layout = require('../../shared/components/layout');
-
-
-var Navigation = ReactRouter.Navigation,
-    ListenerMixin = Reflux.ListenerMixin;
-
-var actions = require('../actions');
+import actions from '../actions';
 
 
-module.exports = React.createClass({
-    mixins: [
-        ListenerMixin,
-        Navigation
-    ],
+class Moderation extends React.Component {
+    constructor(props) {
+        super(props);
+        this.getPost = this.getPost.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
 
-    componentDidMount: function() {
-        this.listenTo(actions.loadPost.completed, this.goBack);
-        this.timer = setTimeout(this.loadPost, 10000);
-    },
+    componentWillMount() {
+        this.unsubscribe = actions.getPost.completed.listen(
+            this.props.router.goBack);
+        this.timer = setTimeout(this.getPost, 10000);
+    }
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
+        this.unsubscribe();
         clearTimeout(this.timer);
-    },
+    }
 
-    handleClick: function(e) {
+    handleClick(e) {
         e.preventDefault();
-        this.loadPost();
-    },
+        this.getPost();
+    }
 
-    loadPost: function() {
-        actions.loadPost(this.props.params.slug);
-    },
+    getPost() {
+        actions.getPost(this.props.params.slug);
+    }
 
-    render: function() {
+    render() {
         return (
             <Layout>
                 <h1>Comment Moderation</h1>
@@ -52,4 +48,15 @@ module.exports = React.createClass({
             </Layout>
         );
     }
-});
+}
+
+Moderation.propTypes = {
+    router: PropTypes.shape({
+        goBack: PropTypes.func.isRequired
+    }),
+    params: PropTypes.shape({
+        slug: PropTypes.string.isRequired
+    })
+};
+
+export default Moderation;

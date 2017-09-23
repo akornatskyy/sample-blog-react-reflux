@@ -1,11 +1,10 @@
-'use strict';
+import $ from 'jquery';
 
-var $ = require('jquery');
 
-var host = '';
+const host = '';
 
-module.exports = {
-    get: function(path, data) {
+export default {
+    get: (path, data) => {
         return $.ajax({
             url: host + path,
             data: data,
@@ -18,8 +17,8 @@ module.exports = {
         });
     },
 
-    post: function(path, data) {
-        return new Promise(function(resolve, reject) {
+    post: (path, data) => {
+        return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
                 url: host + path,
@@ -33,13 +32,13 @@ module.exports = {
                     withCredentials: true
                 }
             })
-            .done(resolve)
-            .fail(function(x) {
-                if (x.status !== 400) {
-                    return;
-                }
-                reject(x.responseJSON);
-            });
+                .done(resolve)
+                .fail(x => {
+                    if (x.status !== 400) {
+                        return;
+                    }
+                    reject(x.responseJSON);
+                });
         });
     }
 };

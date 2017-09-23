@@ -1,46 +1,49 @@
-'use strict';
+import Reflux from 'reflux';
 
-var Reflux = require('reflux');
+import actions from '../actions';
 
-var actions = require('../actions');
-
-
-module.exports = Reflux.createStore({
-    listenables: actions,
-
-    onSignin: function() {
-        this.trigger({pending: true});
-    },
-
-    onSigninCompleted: function(user) {
-        this.trigger({errors: null, pending: false, user: user});
-    },
-
-    onSigninFailed: function(errors) {
-        this.trigger({errors: errors, pending: false});
-    },
-
-    onSignup: function() {
-        this.trigger({pending: true});
-    },
-
-    onSignupFailed: function(errors) {
-        this.trigger({errors: errors, pending: false});
-    },
-
-    onSignout: function() {
-        this.trigger({pending: true});
-    },
-
-    onSignoutCompleted: function() {
-        this.trigger({errors: null, pending: false, user: null});
-    },
-
-    onUserCompleted: function(user) {
-        this.trigger({user: user});
-    },
-
-    onUserFailed: function() {
-        this.trigger({user: null});
+class UserStore extends Reflux.Store {
+    constructor() {
+        super();
+        this.listenables = actions;
+        this.state = {errors: {}, pending: false, user: null};
     }
-});
+
+    onSignin() {
+        this.setState({pending: true});
+    }
+
+    onSigninCompleted(user) {
+        this.setState({errors: {}, pending: false, user: user});
+    }
+
+    onSigninFailed(errors) {
+        this.setState({errors: errors, pending: false});
+    }
+
+    onSignup() {
+        this.setState({pending: true});
+    }
+
+    onSignupFailed(errors) {
+        this.setState({errors: errors, pending: false});
+    }
+
+    onSignout() {
+        this.setState({pending: true});
+    }
+
+    onSignoutCompleted() {
+        this.setState({errors: {}, pending: false, user: null});
+    }
+
+    onUserCompleted(user) {
+        this.setState({user: user});
+    }
+
+    onUserFailed() {
+        this.setState({user: null});
+    }
+}
+
+export default Reflux.initStore(UserStore);

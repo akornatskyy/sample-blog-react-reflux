@@ -1,10 +1,8 @@
-'use strict';
+import api from 'api';
 
-var actions = require('../actions');
-
-var api = require('./api');
+import actions from '../actions';
 
 
-actions.loadDailyQuote.listenAndPromise(api.dailyquote);
+actions.getDailyQuote.listenAndPromise(api.dailyQuote);
 
-module.exports = actions;
+export default actions;

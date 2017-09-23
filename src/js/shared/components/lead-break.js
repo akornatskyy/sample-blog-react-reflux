@@ -1,21 +1,25 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-var React = require('react');
 
-
-module.exports = React.createClass({
-    propTypes: {
-        text: React.PropTypes.string.isRequired
-    },
-
-    render: function() {
-        var r = [], p = this.props.text.split('\\n\\n');
-
-        r.push(<p key={0} className="lead">{p[0]}</p>);
-        for (var i = 1; i < p.length; i++) {
-            r.push(<p key={i}>{p[i]}</p>);
-        }
-
-        return <div>{r}</div>;
+const LeadBreak = ({text}) => {
+    if (!text) {
+        return null;
     }
-});
+
+    const p = text.split('\\n\\n');
+    const r = [];
+
+    r.push(<p key="0" className="lead">{p[0]}</p>);
+    for (let i = 1; i < p.length; i++) {
+        r.push(<p key={i}>{p[i]}</p>);
+    }
+
+    return <div>{r}</div>;
+};
+
+LeadBreak.propTypes = {
+    text: PropTypes.string
+};
+
+export default LeadBreak;

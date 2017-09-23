@@ -1,36 +1,22 @@
-'use strict';
+import Reflux from 'reflux';
 
-var Reflux = require('reflux');
-
-var actions = require('../actions');
+import actions from '../actions';
 
 
-module.exports = Reflux.createStore({
-    listenables: actions,
-
-    init: function() {
-        this.pending = false;
-        this.q = '';
-        this.posts = {};
-    },
-
-    getInitialState: function() {
-        return {
-            pending: this.pending,
-            q: this.q,
-            posts: this.posts
-        };
-    },
-
-    onSearchPosts: function(q) {
-        this.pending = true;
-        this.q = q;
-        this.trigger({pending: true, q: q});
-    },
-
-    onSearchPostsCompleted: function(posts) {
-        this.pending = false;
-        this.posts = posts;
-        this.trigger({pending: false, posts: posts});
+class PostsStore extends Reflux.Store {
+    constructor() {
+        super();
+        this.state = {pending: false, q: '', posts: {items: []}};
+        this.listenables = actions;
     }
-});
+
+    onSearchPosts(q) {
+        this.setState({pending: true, q: q});
+    }
+
+    onSearchPostsCompleted(posts) {
+        this.setState({pending: false, posts: posts});
+    }
+}
+
+export default Reflux.initStore(PostsStore);

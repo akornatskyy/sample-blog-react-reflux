@@ -1,20 +1,12 @@
-'use strict';
-
-var $ = require('../../shared/ajax');
+import $ from '../../shared/ajax';
 
 
-module.exports = {
-    searchPosts: function(q, page) {
-        return $.get('/api/v1/search/posts', {q: q, page: page});
-    },
+export default {
+    searchPosts: (q, page) => $.get('/api/v1/search/posts', {q: q, page: page}),
 
-    loadPost: function(slug) {
-        return $.get('/api/v1/post/' + slug +
-                     '?fields=permissions,comments');
-    },
+    getPost: slug => $.get(
+        '/api/v1/post/' + slug + '?fields=permissions,comments'),
 
-    addPostComment: function(slug, message) {
-        return $.post('/api/v1/post/' + slug + '/comments',
-                      {message: message});
-    }
+    addComment: (slug, message) => $.post(
+        '/api/v1/post/' + slug + '/comments', {message: message})
 };

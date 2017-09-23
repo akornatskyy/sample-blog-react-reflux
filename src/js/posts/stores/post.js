@@ -1,55 +1,44 @@
-'use strict';
+import Reflux from 'reflux';
 
-var Reflux = require('reflux');
-
-var actions = require('../actions');
+import actions from '../actions';
 
 
-module.exports = Reflux.createStore({
-    listenables: actions,
-
-    init: function() {
-        this.pending = false;
-        this.post = null;
-    },
-
-    getInitialState: function() {
-        return {pending: this.pending, post: this.post};
-    },
-
-    onSigninCompleted: function() {
-        if (this.post) {
-            actions.reloadPost(this.post.slug);
-        }
-    },
-
-    onSignoutCompleted: function() {
-        if (this.post) {
-            actions.reloadPost(this.post.slug);
-        }
-    },
-
-    onLoadPostCompleted: function(post) {
-        this.post = post;
-        this.trigger({post: post});
-    },
-
-    onReloadPostCompleted: function(post) {
-        this.post = post;
-        this.trigger({post: post});
-    },
-
-    onAddPostComment: function() {
-        this.pending = true;
-        this.trigger({pending: true});
-    },
-
-    onAddPostCommentCompleted: function() {
-        this.pending = false;
-    },
-
-    onAddPostCommentFailed: function(errors) {
-        this.pending = false;
-        this.trigger({errors: errors, pending: false});
+class PostStore extends Reflux.Store {
+    constructor() {
+        super();
+        this.state = {pending: false, post: null, errors: {}};
+        this.listenables = actions;
     }
-});
+
+    onSigninCompleted() {
+        const post = this.state.post;
+        if (post) {
+            actions.getPost(post.slug);
+        }
+    }
+
+    onSignoutCompleted() {
+        const post = this.state.post;
+        if (post) {
+            actions.getPost(post.slug);
+        }
+    }
+
+    onGetPostCompleted(post) {
+        this.setState({post: post});
+    }
+
+    onAddPostComment() {
+        this.setState({pending: true, errors: {}});
+    }
+
+    onAddPostCommentCompleted() {
+        this.setState({pending: false});
+    }
+
+    onAddPostCommentFailed(errors) {
+        this.setState({pending: false, errors: errors});
+    }
+}
+
+export default Reflux.initStore(PostStore);

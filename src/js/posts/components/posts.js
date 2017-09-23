@@ -1,157 +1,74 @@
-'use strict';
+import React from 'react';
+import Reflux from 'reflux';
 
-var React = require('react'),
-    ReactRouter = require('react-router'),
-    ReactBootstrap = require('react-bootstrap'),
-    Reflux = require('reflux');
+import Layout from '../../shared/components/layout';
+import SignUpWell from '../../shared/components/signup-well';
+import Paging from '../../shared/components/paging';
+import SearchPostsWell from './search-posts-well';
+import PostItem from './post-item';
 
-var _ = require('../../shared/utils'),
-    Layout = require('../../shared/components/layout'),
-    Paging = require('../../shared/components/paging'),
-    SignUpWell = require('../../shared/components/signup-well');
-
-var actions = require('../actions'),
-    postsStore = require('../stores/posts');
+import actions from '../actions';
+import postsStore from '../stores/posts';
 
 
-var Well = ReactBootstrap.Well,
-    Input = ReactBootstrap.Input,
-    Button = ReactBootstrap.Button,
-    Glyphicon = ReactBootstrap.Glyphicon,
-    Navigation = ReactRouter.Navigation,
-    ListenerMixin = Reflux.ListenerMixin;
-
-
-var PostItem = React.createClass({
-    handleClick: function(e) {
-        e.preventDefault();
-        actions.loadPost(this.props.item.slug);
-    },
-
-    render: function() {
-        var p = this.props.item,
-            created = _.formatDateOrTime(p.created_on);
-
-        return (
-            <div>
-                <h2>
-                    <a href="" onClick={this.handleClick}>
-                        {p.title}
-                    </a>
-                </h2>
-                <p className="lead">
-                    by {p.author.first_name} {p.author.last_name}
-                </p>
-                <p>
-                    <Glyphicon glyph="time" /> Posted {created}
-                </p>
-                <hr/>
-                <p>
-                    {p.message}
-                </p>
-                <Button bsStyle="primary" onClick={this.handleClick}>
-                    Read More <Glyphicon glyph="chevron-right" />
-                </Button>
-                <hr/>
-            </div>
-        );
+class Posts extends Reflux.Component {
+    constructor(props) {
+        super(props);
+        this.store = postsStore;
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleSelectPage = this.handleSelectPage.bind(this);
     }
-});
 
-var Posts = React.createClass({
-    render: function() {
-        var p, items = [];
-
-        for (var i in this.props.items) {
-            p = this.props.items[i];
-            items.push(<PostItem key={i} item={p} />);
-        }
-
-        return (
-            <div>
-                {items}
-            </div>
-        );
+    componentWillMount() {
+        super.componentWillMount();
+        this.unsubscribe = actions.getPost.completed.listen(
+            p => this.props.router.push('/post/' + p.slug));
     }
-});
 
-var SearchPostsWell = React.createClass({
-    propTypes: {
-        q: React.PropTypes.string,
-        onSubmit: React.PropTypes.func
-    },
-
-    handleSubmit: function(e) {
-        e.preventDefault();
-        if (this.props.onSubmit) {
-            var q = this.refs.q.getInputDOMNode().value.trim();
-
-            this.props.onSubmit(q);
-        }
-    },
-
-    render: function() {
-        var search = (
-            <Button disabled={this.props.disabled} type="submit">
-                <Glyphicon glyph="search" />
-            </Button>
-        );
-
-        return (
-            <Well>
-                <h4>Blog Search</h4>
-                <form autoComplete="off"
-                      onSubmit={this.handleSubmit}>
-                    <Input name="q" ref="q" type="text" standalone
-                        defaultValue={this.props.q}
-                        buttonAfter={search} />
-                </form>
-            </Well>
-        );
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.unsubscribe();
     }
-});
 
-module.exports = React.createClass({
-    mixins: [
-        Reflux.connect(postsStore),
-        ListenerMixin,
-        Navigation
-    ],
+    handleSearch(q, page) {
+        const locationBeforeTransitions = this.props.location;
+        const posts = this.state.posts;
+        const location = {query: {}};
 
-    componentDidMount: function() {
-        this.listenTo(actions.loadPost.completed, this.onLoadPostCompleted);
-    },
-
-    handleSearch: function(q) {
-        actions.searchPosts(q);
-        this.transitionTo('posts', null, q ? {q: q} : null);
-    },
-
-    handleSelectPage: function(page) {
-        var query = {}, q = this.state.q;
-
-        actions.searchPosts(this.state.q, page);
-
-        if (q) {
-            query.q = q;
+        if (q == '') {
+            location.pathname = '/';
+        } else {
+            location.pathname = '/posts';
+            location.query.q = q;
         }
 
         if (page > 0) {
-            query.p = page;
+            location.query.page = page;
         }
 
-        this.transitionTo('posts', null, query);
-    },
+        if (location.pathname != locationBeforeTransitions.pathname ||
+                location.query.q != locationBeforeTransitions.query.q ||
+                location.query.page != locationBeforeTransitions.query.page) {
+            this.props.router.push(location);
+        }
 
-    onLoadPostCompleted: function(p) {
-        this.transitionTo('post', {slug: p.slug});
-    },
+        if (posts.pending || posts.q == q && posts.page == page) {
+            return;
+        }
 
-    render: function() {
-        var sidebar = (
+        actions.searchPosts(q, page);
+    }
+
+    handleSelectPage(page) {
+        this.handleSearch(this.state.q, page);
+    }
+
+    render() {
+        const {q, pending, posts} = this.state;
+        const sidebar = (
             <div>
-                <SearchPostsWell q={this.state.q}
-                                 onSubmit={this.handleSearch} />
+                <SearchPostsWell q={q} pending={pending}
+                    onSubmit={this.handleSearch} />
                 <SignUpWell user={this.props.user} />
             </div>
         );
@@ -161,11 +78,15 @@ module.exports = React.createClass({
                 <h1>
                     Keep It Simple <small>Welcome</small>
                 </h1>
-                <Posts items={this.state.posts.items} />
-                <Paging disabled={this.state.pending}
-                        paging={this.state.posts.paging}
-                        onSelect={this.handleSelectPage} />
+                {
+                    posts.items.map((p, i) => <PostItem key={i} item={p} />)
+                }
+                <Paging disabled={pending}
+                    paging={posts.paging}
+                    onSelect={this.handleSelectPage} />
             </Layout>
         );
     }
-});
+}
+
+export default Posts;

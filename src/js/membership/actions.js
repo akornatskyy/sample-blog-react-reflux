@@ -1,8 +1,6 @@
-'use strict';
+import api from 'api';
 
-var actions = require('../actions');
-
-var api = require('./api');
+import actions from '../actions';
 
 
 actions.signin.listenAndPromise(api.signin);
@@ -10,4 +8,4 @@ actions.signout.listenAndPromise(api.signout);
 actions.signup.listenAndPromise(api.signup);
 actions.user.listenAndPromise(api.user);
 
-module.exports = actions;
+export default actions;
