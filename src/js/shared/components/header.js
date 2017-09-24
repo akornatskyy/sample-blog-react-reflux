@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 
@@ -7,7 +8,7 @@ const Header = ({children}) => (
     <Navbar inverse fixedTop>
         <Navbar.Header>
             <Navbar.Brand>
-                <a href="/">Keep It Simple Blog</a>
+                <Link to="/">Keep It Simple Blog</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
         </Navbar.Header>

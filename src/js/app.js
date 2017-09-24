@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, browserHistory} from 'react-router';
+import {BrowserRouter} from 'react-router-dom';
 
 import actions from './actions';
 import routes from './routes';
@@ -12,8 +12,8 @@ actions.searchPosts();
 actions.user();
 
 ReactDOM.render(
-    <Router history={browserHistory}>
+    <BrowserRouter basename={window.location.pathname}>
         {routes}
-    </Router>,
+    </BrowserRouter>,
     document.getElementById('root')
 );

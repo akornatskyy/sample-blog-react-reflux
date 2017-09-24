@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Reflux from 'reflux';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {Well, FormGroup, FormControl, Button} from 'react-bootstrap';
 
 import Errors from '../../shared/components/errors';
@@ -24,7 +24,7 @@ class SignIn extends Reflux.Component {
         super.componentWillMount();
         actions.signout();
         this.unsubscribe = actions.signin.completed.listen(
-            this.props.router.goBack);
+            this.props.history.goBack);
     }
 
     componentWillUnmount() {
@@ -48,7 +48,7 @@ class SignIn extends Reflux.Component {
         const {pending, errors} = this.state;
 
         return (
-            <Layout sidebar={<SignUpWell/>}>
+            <Layout sidebar={<SignUpWell />}>
                 <h1>Sign In</h1>
                 <p>
                     Need an account? <Link to="/signup">Sign up</Link> free.
@@ -91,6 +91,9 @@ class SignIn extends Reflux.Component {
 }
 
 SignIn.childContextTypes = {
+    history: PropTypes.shape({
+        goBack: PropTypes.func.isRequired
+    }),
     errors: PropTypes.object.isRequired
 };
 

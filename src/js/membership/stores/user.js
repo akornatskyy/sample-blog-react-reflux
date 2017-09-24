@@ -6,7 +6,7 @@ class UserStore extends Reflux.Store {
     constructor() {
         super();
         this.listenables = actions;
-        this.state = {errors: {}, pending: false, user: null};
+        this.state = {errors: {}, pending: false};
     }
 
     onSignin() {

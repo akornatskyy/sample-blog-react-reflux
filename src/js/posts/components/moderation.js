@@ -15,7 +15,7 @@ class Moderation extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = actions.getPost.completed.listen(
-            this.props.router.goBack);
+            this.props.history.goBack);
         this.timer = setTimeout(this.getPost, 10000);
     }
 
@@ -30,7 +30,7 @@ class Moderation extends React.Component {
     }
 
     getPost() {
-        actions.getPost(this.props.params.slug);
+        actions.getPost(this.props.match.params.slug);
     }
 
     render() {
@@ -51,11 +51,13 @@ class Moderation extends React.Component {
 }
 
 Moderation.propTypes = {
-    router: PropTypes.shape({
+    history: PropTypes.shape({
         goBack: PropTypes.func.isRequired
     }),
-    params: PropTypes.shape({
-        slug: PropTypes.string.isRequired
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            slug: PropTypes.string.isRequired
+        })
     })
 };
 

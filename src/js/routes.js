@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Reflux from 'reflux';
-import {Route} from 'react-router';
+import {Switch, Route} from 'react-router-dom';
 import {Grid} from 'react-bootstrap';
 
 import SignIn from './membership/components/signin';
@@ -26,14 +25,30 @@ class App extends Reflux.Component {
 
     render() {
         const user = this.state.user;
-        const authInfo = this.props.location.pathname !== '/signin'
-            ? (<AuthInfo user={user} />) : null;
+        const authenticated = !!user;
+        let authInfo = null;
+        if (this.props.location.pathname !== '/signin'
+                && user !== undefined) {
+            authInfo = (<AuthInfo user={user} />);
+        }
+
         return (
             <Grid>
                 <Header>
                     {authInfo}
                 </Header>
-                {React.cloneElement(this.props.children, {user: user})}
+                <Switch>
+                    <Route exact path="/" render={props =>
+                        <Posts {...props} authenticated={authenticated} />} />
+                    <Route exact path="/posts" render={props =>
+                        <Posts {...props} authenticated={authenticated} />} />
+                    <Route exact path="/post/:slug" render={props =>
+                        <Post {...props} authenticated={authenticated} />} />
+                    <Route exact path="/post/:slug/moderation"
+                        component={Moderation} />
+                    <Route exact path="/signin" component={SignIn} />
+                    <Route exact path="/signup" component={SignUp} />
+                </Switch>
                 <hr/>
                 <Footer/>
             </Grid>
@@ -41,17 +56,4 @@ class App extends Reflux.Component {
     }
 }
 
-App.propTypes = {
-    children: PropTypes.element.isRequired
-};
-
-export default (
-    <Route component={App}>
-        <Route path="/" component={Posts} />
-        <Route path="posts" component={Posts} />
-        <Route path="post/:slug" component={Post} />
-        <Route path="post/:slug/moderation" component={Moderation} />
-        <Route path="signin" component={SignIn} />
-        <Route path="signup" component={SignUp} />
-    </Route>
-);
+export default (<Route path="/" component={App} />);

@@ -24,8 +24,8 @@ class Post extends Reflux.Component {
     componentWillMount() {
         super.componentWillMount();
         this.unsubscribe = actions.addPostComment.completed.listen(
-            () => this.props.router.push(
-                '/post/' + this.props.params.slug + '/moderation'));
+            () => this.props.history.push(
+                '/post/' + this.props.match.params.slug + '/moderation'));
     }
 
     componentWillUnmount() {
@@ -34,7 +34,7 @@ class Post extends Reflux.Component {
     }
 
     handleSubmit(message) {
-        actions.addPostComment(this.props.params.slug, message);
+        actions.addPostComment(this.props.match.params.slug, message);
     }
 
     render() {
@@ -58,7 +58,7 @@ class Post extends Reflux.Component {
                     <LeadBreak text={post.message} />
                 </article>
                 <hr/>
-                <CommentWell authenticated={!!this.props.user}
+                <CommentWell authenticated={this.props.authenticated}
                     permitted={permitted}
                     disabled={pending}
                     errors={errors}
@@ -70,6 +70,14 @@ class Post extends Reflux.Component {
 }
 
 Post.propTypes = {
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    }),
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            slug: PropTypes.string.isRequired
+        }),
+    }),
     pending: PropTypes.bool,
     post: PropTypes.shape({
         'title': PropTypes.string,
@@ -79,7 +87,8 @@ Post.propTypes = {
         }),
         'created_on': PropTypes.string,
         'message': PropTypes.string
-    })
+    }),
+    authenticated: PropTypes.bool
 };
 
 export default Post;

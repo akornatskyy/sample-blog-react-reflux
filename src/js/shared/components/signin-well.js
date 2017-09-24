@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {Well} from 'react-bootstrap';
 
 
-const SignInWell = ({user}) => {
-    if (user) {
+const SignInWell = ({authenticated}) => {
+    if (authenticated) {
         return null;
     }
 
@@ -22,7 +22,7 @@ const SignInWell = ({user}) => {
 };
 
 SignInWell.propTypes = {
-    user: PropTypes.object
+    authenticated: PropTypes.bool
 };
 
 export default SignInWell;

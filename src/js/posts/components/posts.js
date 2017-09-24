@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Reflux from 'reflux';
 
 import Layout from '../../shared/components/layout';
@@ -22,7 +23,7 @@ class Posts extends Reflux.Component {
     componentWillMount() {
         super.componentWillMount();
         this.unsubscribe = actions.getPost.completed.listen(
-            p => this.props.router.push('/post/' + p.slug));
+            p => this.props.history.push('/post/' + p.slug));
     }
 
     componentWillUnmount() {
@@ -49,7 +50,7 @@ class Posts extends Reflux.Component {
         if (location.pathname != locationBeforeTransitions.pathname ||
                 location.query.q != locationBeforeTransitions.query.q ||
                 location.query.page != locationBeforeTransitions.query.page) {
-            this.props.router.push(location);
+            this.props.history.push(location);
         }
 
         if (posts.pending || posts.q == q && posts.page == page) {
@@ -69,10 +70,9 @@ class Posts extends Reflux.Component {
             <div>
                 <SearchPostsWell q={q} pending={pending}
                     onSubmit={this.handleSearch} />
-                <SignUpWell user={this.props.user} />
+                <SignUpWell authenticated={this.props.authenticated} />
             </div>
         );
-
         return (
             <Layout sidebar={sidebar}>
                 <h1>
@@ -88,5 +88,19 @@ class Posts extends Reflux.Component {
         );
     }
 }
+
+Posts.propTypes = {
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    }),
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired,
+        query: PropTypes.shape({
+            q: PropTypes.string,
+            page: PropTypes.string
+        })
+    }),
+    authenticated: PropTypes.bool
+};
 
 export default Posts;

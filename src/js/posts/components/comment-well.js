@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Well, FormGroup, FormControl, Button, Alert} from 'react-bootstrap';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 import Errors from '../../shared/components/errors';
 
