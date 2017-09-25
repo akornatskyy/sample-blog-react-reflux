@@ -1,44 +1,45 @@
-import $ from 'jquery';
-
+import 'whatwg-fetch';
+import {qs} from './utils';
 
 const host = '';
 
 export default {
-    get: (path, data) => {
-        return $.ajax({
-            url: host + path,
-            data: data,
+    get: (path, params) => {
+        if (params) {
+            const s = qs(params);
+            if (s !== '') {
+                path += (path.indexOf('?') === -1 ? '?' : '&') + s;
+            }
+        }
+        return fetch(host + path, {
+            credentials: 'include',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
-            },
-            xhrFields: {
-                withCredentials: true
             }
-        });
+        }).then(r => r.json());
     },
 
     post: (path, data) => {
         return new Promise((resolve, reject) => {
-            $.ajax({
-                type: 'POST',
-                url: host + path,
-                data: JSON.stringify(data),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
+            fetch(host + path, {
+                method: 'POST',
+                credentials: 'include',
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json; charset=utf-8'
                 },
-                xhrFields: {
-                    withCredentials: true
+                body: JSON.stringify(data)
+            }).then(r => {
+                if (r.status === 400) {
+                    return r.json().then(reject);
                 }
-            })
-                .done(resolve)
-                .fail(x => {
-                    if (x.status !== 400) {
-                        return;
-                    }
-                    reject(x.responseJSON);
-                });
+
+                if (r.status >= 200 && r.status < 300) {
+                    return r.json().then(resolve);
+                }
+
+                return r;
+            });
         });
     }
 };
