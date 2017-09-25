@@ -10,6 +10,7 @@ import PostItem from './post-item';
 
 import actions from '../actions';
 import postsStore from '../stores/posts';
+import {qs} from '../../shared/utils';
 
 
 class Posts extends Reflux.Component {
@@ -26,6 +27,19 @@ class Posts extends Reflux.Component {
             p => this.props.history.push('/post/' + p.slug));
     }
 
+    componentWillReceiveProps(nextProps) {
+        const nl = nextProps.location;
+        const l = this.props.location;
+        if (nl.pathname !== l.pathname || nl.search !== l.search) {
+            const state = nextProps.location.state;
+            if (!state) {
+                actions.searchPosts();
+            } else {
+                actions.searchPosts(state.q, state.page);
+            }
+        }
+    }
+
     componentWillUnmount() {
         super.componentWillUnmount();
         this.unsubscribe();
@@ -33,24 +47,29 @@ class Posts extends Reflux.Component {
 
     handleSearch(q, page) {
         const locationBeforeTransitions = this.props.location;
-        const posts = this.state.posts;
-        const location = {query: {}};
+        const posts = this.state;
+        const location = {};
+        const query = {};
 
-        if (q == '') {
+        if (!q || q == '') {
             location.pathname = '/';
         } else {
             location.pathname = '/posts';
-            location.query.q = q;
+            query.q = q;
         }
 
         if (page > 0) {
-            location.query.page = page;
+            query.page = page;
+        }
+
+        const search = qs(query);
+        if (search !== '') {
+            location.search = '?' + search;
         }
 
         if (location.pathname != locationBeforeTransitions.pathname ||
-                location.query.q != locationBeforeTransitions.query.q ||
-                location.query.page != locationBeforeTransitions.query.page) {
-            this.props.history.push(location);
+            location.search != locationBeforeTransitions.search) {
+            this.props.history.push(location, query);
         }
 
         if (posts.pending || posts.q == q && posts.page == page) {
@@ -65,7 +84,7 @@ class Posts extends Reflux.Component {
     }
 
     render() {
-        const {q, pending, posts} = this.state;
+        const {q, pending, posts: {items, paging}} = this.state;
         const sidebar = (
             <div>
                 <SearchPostsWell q={q} pending={pending}
@@ -79,10 +98,10 @@ class Posts extends Reflux.Component {
                     Keep It Simple <small>Welcome</small>
                 </h1>
                 {
-                    posts.items.map((p, i) => <PostItem key={i} item={p} />)
+                    items && items.map((p, i) => <PostItem key={i} item={p} />)
                 }
                 <Paging disabled={pending}
-                    paging={posts.paging}
+                    paging={paging}
                     onSelect={this.handleSelectPage} />
             </Layout>
         );
