@@ -18,7 +18,7 @@ class CommentWell extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.props.onSubmit) {
+        if (!this.props.disabled && this.props.onSubmit) {
             const m = this.message.value.trim();
 
             if (m) {
@@ -56,8 +56,7 @@ class CommentWell extends React.Component {
                 <Errors.Summary />
                 <Well>
                     <h4>Leave a Comment:</h4>
-                    <form autoComplete="off"
-                        onSubmit={!disabled && this.handleSubmit}>
+                    <form autoComplete="off" onSubmit={this.handleSubmit}>
                         <FormGroup validationState={errors.message && 'error'}>
                             <FormControl rows="3" disabled={disabled}
                                 inputRef={ ref => {

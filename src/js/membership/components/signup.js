@@ -31,12 +31,14 @@ class SignUp extends Reflux.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        actions.signup({
-            'email': this.email.value,
-            'username': this.username.value,
-            'password': this.password.value,
-            'confirm_password': this.confirmPassword.value
-        });
+        if (!this.state.pending) {
+            actions.signup({
+                'email': this.email.value,
+                'username': this.username.value,
+                'password': this.password.value,
+                'confirm_password': this.confirmPassword.value
+            });
+        }
     }
 
     render() {
@@ -52,8 +54,7 @@ class SignUp extends Reflux.Component {
                 <hr/>
                 <Errors.Summary />
                 <Well>
-                    <form autoComplete="off"
-                        onSubmit={!pending && this.handleSubmit}>
+                    <form autoComplete="off" onSubmit={this.handleSubmit}>
                         <FormGroup validationState={errors.email && 'error'}>
                             <FormControl
                                 inputRef={ref => {

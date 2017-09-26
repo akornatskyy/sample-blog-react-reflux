@@ -38,10 +38,12 @@ class SignIn extends Reflux.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        actions.signin({
-            username: this.username.value,
-            password: this.password.value
-        });
+        if (!this.state.pending) {
+            actions.signin({
+                username: this.username.value,
+                password: this.password.value
+            });
+        }
     }
 
     render() {
@@ -58,8 +60,7 @@ class SignIn extends Reflux.Component {
                 <hr/>
                 <Errors.Summary />
                 <Well>
-                    <form autoComplete="off"
-                        onSubmit={!pending && this.handleSubmit}>
+                    <form autoComplete="off" onSubmit={this.handleSubmit}>
                         <FormGroup validationState={errors.username && 'error'}>
                             <FormControl
                                 inputRef={ref => {

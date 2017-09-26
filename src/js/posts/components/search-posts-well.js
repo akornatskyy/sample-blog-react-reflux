@@ -13,7 +13,7 @@ class SearchPostsWell extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.props.onSubmit) {
+        if (!this.props.pending && this.props.onSubmit) {
             this.props.onSubmit(this.q.value.trim());
         }
     }
