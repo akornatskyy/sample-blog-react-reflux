@@ -63,7 +63,7 @@ module.exports = {
                 })
             },
             {
-                test: /src\/js\/shared\/ajax\.js$/,
+                test: path.join(__dirname, 'src/js/shared/ajax.js'),
                 loader: 'string-replace-loader',
                 query: {
                     search: 'host = \'\'',

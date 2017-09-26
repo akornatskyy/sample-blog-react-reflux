@@ -13,4 +13,5 @@ env:
 
 script:
     - npm run lint
-    - npm run build
+    - API=mock npm run build
+    - API=web npm run build
