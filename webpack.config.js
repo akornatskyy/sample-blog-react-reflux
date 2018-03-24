@@ -4,30 +4,24 @@ const pkg = require('./package.json');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const plugins = [
     new HtmlPlugin({
         template: path.resolve(__dirname, 'src/index.html')
     }),
-    new ExtractTextPlugin('css/[name].[contenthash:5].css'),
+    new ExtractTextPlugin('css/[name].[hash:5].css'),
     new webpack.NoEmitOnErrorsPlugin()
 ];
 
 if (prod) {
     plugins.push(
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'lib',
-            minChunks: Infinity
-        }),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }));
+        new UglifyJsPlugin());
 }
 
 module.exports = {
+    mode: prod ? 'production' : 'development',
     context: path.resolve(__dirname, 'src'),
     entry: {
         lib: Object.keys(pkg.dependencies),
@@ -43,6 +37,18 @@ module.exports = {
         }
     },
     plugins: plugins,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            chunks: 'initial',
+            minChunks: 2,
+            name: 'lib',
+            minSize: 0
+          }
+        }
+      }
+    },
     module: {
         rules: [
             {
