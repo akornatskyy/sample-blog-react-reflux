@@ -38,16 +38,16 @@ module.exports = {
     },
     plugins: plugins,
     optimization: {
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            chunks: 'initial',
-            minChunks: 2,
-            name: 'lib',
-            minSize: 0
-          }
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    chunks: 'initial',
+                    minChunks: 2,
+                    name: 'lib',
+                    minSize: 0
+                }
+            }
         }
-      }
     },
     module: {
         rules: [
