@@ -13,7 +13,7 @@ class Moderation extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.unsubscribe = actions.getPost.completed.listen(
             this.props.history.goBack);
         this.timer = setTimeout(this.getPost, 10000);
