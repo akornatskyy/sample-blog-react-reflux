@@ -1,6 +1,6 @@
 FROM nginx:stable-alpine
 
-MAINTAINER Andriy Kornatskyy <andriy.kornatskyy@live.com>
+LABEL maintainer="Andriy Kornatskyy <andriy.kornatskyy@live.com>"
 
 ENV NODE_ENV=prod
 
