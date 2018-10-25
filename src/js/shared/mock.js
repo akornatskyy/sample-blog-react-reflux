@@ -14,7 +14,7 @@ export const trancateWords = (s, count) => {
 };
 
 export const first = (items, predicate) => {
-    for (let d of items) {
+    for (const d of items) {
         if (predicate(d)) {
             return d;
         }
@@ -26,7 +26,7 @@ export const first = (items, predicate) => {
 export const nfilter = (items, n, predicate) => {
     const r = [];
 
-    for (let d of items) {
+    for (const d of items) {
         if (predicate(d)) {
             r.push(d);
             n -= 1;
