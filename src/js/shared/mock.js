@@ -5,7 +5,7 @@ export const reject = (r, timeout) => new Promise((resolve, reject) =>
     setTimeout(() => reject(r), timeout || 100));
 
 export const trancateWords = (s, count) => {
-    s = s.split(/\s|\\n/).slice(0, count);
+    s = s.replace(/(\\n)+/, ' ').split(/\s+/).slice(0, count);
     if (s.length === count) {
         s.push('...');
     }
