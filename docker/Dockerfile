@@ -10,7 +10,7 @@ RUN set -ex \
         nodejs \
         git \
     \
-    && git clone --depth=1 https://github.com/akornatskyy/sample-blog-react.git src \
+    && git clone --depth=1 https://github.com/akornatskyy/sample-blog-react-reflux.git src \
     \
     && cd src \
     && npm i \

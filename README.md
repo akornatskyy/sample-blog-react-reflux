@@ -1,7 +1,7 @@
 # React Blog Sample
 
-[![Build Status](https://travis-ci.org/akornatskyy/sample-blog-react.svg?branch=master)](https://travis-ci.org/akornatskyy/sample-blog-react)
-[![Code Climate](https://codeclimate.com/github/akornatskyy/sample-blog-react/badges/gpa.svg)](https://codeclimate.com/github/akornatskyy/sample-blog-react)
+[![Build Status](https://travis-ci.org/akornatskyy/sample-blog-react-reflux.svg?branch=master)](https://travis-ci.org/akornatskyy/sample-blog-react-reflux)
+[![Code Climate](https://codeclimate.com/github/akornatskyy/sample-blog-react-reflux/badges/gpa.svg)](https://codeclimate.com/github/akornatskyy/sample-blog-react-reflux)
 
 A simple blog written using [react](http://facebook.github.io/react/) and
 [reflux](https://github.com/reflux/refluxjs) demonstrating
