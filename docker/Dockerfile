@@ -8,6 +8,7 @@ RUN set -ex \
     \
     && apk add --no-cache --virtual .build-deps \
         nodejs \
+        npm \
         git \
     \
     && git clone --depth=1 https://github.com/akornatskyy/sample-blog-react-reflux.git src \
