@@ -1,13 +1,13 @@
-import {parse, differenceInDays, distanceInWordsToNow, format} from 'date-fns';
-
+import {parseISO, differenceInDays, formatDistance, format} from 'date-fns';
 
 export const formatDateOrTime = d => {
-    d = parse(d);
-    if (differenceInDays(d, new Date()) >= -3) {
-        return distanceInWordsToNow(d);
+    d = parseISO(d);
+    const now = new Date();
+    if (differenceInDays(d, now) >= -3) {
+        return formatDistance(d, now, {addSuffix: true});
     }
 
-    return format(d, '[on] MMMM DD, YYYY [at] hh:mm A');
+    return format(d, '\'on\' MMMM dd, yyyy \'at\' hh:mm a');
 };
 
 export const qs = params => Object.keys(params)
