@@ -27,8 +27,7 @@ class App extends Reflux.Component {
         const user = this.state.user;
         const authenticated = !!user;
         let authInfo = null;
-        if (this.props.location.pathname !== '/signin'
-                && user !== undefined) {
+        if (this.props.location.pathname !== '/signin' && user !== undefined) {
             authInfo = (<AuthInfo user={user} />);
         }
 
