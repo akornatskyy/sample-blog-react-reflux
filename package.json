@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/akornatskyy/sample-blog-react",
   "dependencies": {
-    "date-fns": "^2.4.1",
+    "date-fns": "^2.6.0",
     "prop-types": "^15.7.2",
-    "react": "^16.10.2",
+    "react": "^16.11.0",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.11.0",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.1.2",
     "reflux": "^6.4.1",
@@ -32,13 +32,13 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
     "babel-loader": "^8.0.6",
     "babel-preset-react-hmre": "^1.1.1",
     "css-loader": "^3.2.0",
-    "eslint": "^6.5.1",
+    "eslint": "^6.6.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.16.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -47,8 +47,8 @@
     "string-replace-loader": "^2.2.0",
     "style-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }
