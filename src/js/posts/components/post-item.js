@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Glyphicon, Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 import {formatDateOrTime} from '../../shared/utils';
 
@@ -22,7 +22,7 @@ class PostItem extends React.Component {
         const p = this.props.item;
 
         return (
-            <div>
+            <>
                 <h2>
                     <a href="" onClick={this.handleClick}>
                         {p.title}
@@ -32,19 +32,19 @@ class PostItem extends React.Component {
                     by {p.author.first_name} {p.author.last_name}
                 </p>
                 <p>
-                    <Glyphicon glyph="time" /> Posted {
+                    <i className="fa fa-clock-o"></i> Posted {
                         formatDateOrTime(p.created_on)
                     }
                 </p>
-                <hr/>
+                <hr />
                 <p>
                     {p.message}
                 </p>
-                <Button bsStyle="primary" onClick={this.handleClick}>
-                    Read More <Glyphicon glyph="chevron-right" />
+                <Button onClick={this.handleClick}>
+                    Read More <i className="fa fa-chevron-right"></i>
                 </Button>
-                <hr/>
-            </div>
+                <hr />
+            </>
         );
     }
 }

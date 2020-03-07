@@ -6,7 +6,7 @@ import actions from '../actions';
 class PostStore extends Reflux.Store {
     constructor() {
         super();
-        this.state = {pending: false, post: null, errors: {}};
+        this.state = {pending: false, post: {author: {}}, errors: {}};
         this.listenables = actions;
     }
 

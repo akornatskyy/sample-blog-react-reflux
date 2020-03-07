@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Reflux from 'reflux';
-import {Glyphicon} from 'react-bootstrap';
 
 import Layout from '../../shared/components/layout';
 import LeadBreak from '../../shared/components/lead-break';
@@ -50,7 +49,7 @@ class Post extends Reflux.Component {
                     </p>
                     <hr/>
                     <p>
-                        <Glyphicon glyph="time" /> Posted {
+                        <i className="fa fa-clock-o"></i> Posted {
                             formatDateOrTime(post.created_on)
                         }
                     </p>

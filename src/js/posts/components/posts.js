@@ -86,11 +86,11 @@ class Posts extends Reflux.Component {
     render() {
         const {q, pending, posts: {items, paging}} = this.state;
         const sidebar = (
-            <div>
+            <>
                 <SearchPostsWell q={q} pending={pending}
                     onSubmit={this.handleSearch} />
                 <SignUpWell authenticated={this.props.authenticated} />
-            </div>
+            </>
         );
         return (
             <Layout sidebar={sidebar}>

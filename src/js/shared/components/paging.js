@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Pager} from 'react-bootstrap';
+import {Row, Col, Pagination} from 'react-bootstrap';
 
 
 const Paging = ({pending, paging, onSelect}) => {
@@ -13,19 +13,23 @@ const Paging = ({pending, paging, onSelect}) => {
 
     if (paging.before !== undefined) {
         newer = (
-            <Pager.Item previous disabled={pending}
-                eventKey={paging.before}>
+            <Pagination onSelect={onSelect}>
+                <Pagination.Prev disabled={pending}
+                    onClick={() => onSelect(paging.before)}>
                 &larr; Newer
-            </Pager.Item>
+                </Pagination.Prev>
+            </Pagination>
         );
     }
 
     if (paging.after !== undefined) {
         older = (
-            <Pager.Item next disabled={pending}
-                eventKey={paging.after}>
+            <Pagination className="justify-content-end">
+                <Pagination.Item disabled={pending}
+                    onClick={() => onSelect(paging.after)}>
                 Older &rarr;
-            </Pager.Item>
+                </Pagination.Item>
+            </Pagination>
         );
     }
 
@@ -34,10 +38,14 @@ const Paging = ({pending, paging, onSelect}) => {
     }
 
     return (
-        <Pager onSelect={onSelect}>
-            {newer}
-            {older}
-        </Pager>
+        <Row>
+            <Col>
+                {newer}
+            </Col>
+            <Col>
+                {older}
+            </Col>
+        </Row>
     );
 };
 

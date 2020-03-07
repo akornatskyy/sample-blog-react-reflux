@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
+import {Navbar, NavbarBrand, Nav} from 'react-bootstrap';
 
 
 const Header = ({children}) => (
-    <Navbar inverse fixedTop>
-        <Navbar.Header>
-            <Navbar.Brand>
-                <Link to="/">Keep It Simple Blog</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-        </Navbar.Header>
+    <Navbar bg="dark" variant="dark" expand="md" fixed="top">
+        <LinkContainer to="/">
+            <NavbarBrand>
+                Keep It Simple Blog
+            </NavbarBrand>
+        </LinkContainer>
+        <Navbar.Toggle />
         <Navbar.Collapse>
-            <Nav>
-                <NavItem disabled>About</NavItem>
-                <NavItem disabled>Contact</NavItem>
+            <Nav className="mr-auto">
+                <Nav.Link>About</Nav.Link>
+                <Nav.Link disabled>Contact</Nav.Link>
             </Nav>
-            <Nav pullRight>
+            <Nav>
                 {children}
             </Nav>
         </Navbar.Collapse>

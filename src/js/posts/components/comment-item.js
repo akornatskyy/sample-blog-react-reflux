@@ -9,11 +9,11 @@ const CommentItem = ({item}) => {
     const gravatarUrl = 'http://www.gravatar.com/avatar/' +
                         item.author.gravatar_hash + '?s=64&d=identicon';
     const heading = (
-        <div>
+        <>
             {item.author.first_name } {item.author.last_name} <small>
                 {formatDateOrTime(item.created_on)}
             </small>
-        </div>
+        </>
     );
 
     return (

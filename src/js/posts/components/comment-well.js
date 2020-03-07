@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Well, FormGroup, FormControl, Button, Alert} from 'react-bootstrap';
+import {Card, FormGroup, FormControl, Button, Alert} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 import Errors from '../../shared/components/errors';
@@ -32,7 +32,7 @@ class CommentWell extends React.Component {
 
         if (authenticated && !permitted) {
             return (
-                <Alert bsStyle="warning">
+                <Alert variant="warning">
                     There are too many of your comments awaiting moderation.
                     Come back later, please.
                 </Alert>
@@ -41,11 +41,15 @@ class CommentWell extends React.Component {
 
         if (!authenticated) {
             return (
-                <Well>
-                    <h4>Leave a Comment:</h4>
-                    <Link to="/signin">Sign in</Link>, please.
-                    New comments are held for moderation.
-                </Well>
+                <Card bg="light">
+                    <Card.Body>
+                        <Card.Title>Leave a Comment:</Card.Title>
+                        <Card.Text>
+                            <Link to="/signin">Sign in</Link>, please.
+                            New comments are held for moderation.
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
             );
         }
 
@@ -54,24 +58,24 @@ class CommentWell extends React.Component {
         return (
             <div>
                 <Errors.Summary />
-                <Well>
-                    <h4>Leave a Comment:</h4>
-                    <form autoComplete="off" onSubmit={this.handleSubmit}>
-                        <FormGroup validationState={errors.message && 'error'}>
-                            <FormControl rows="3" disabled={disabled}
-                                inputRef={ ref => {
-                                    this.message = ref;
-                                }}
-                                componentClass="textarea" />
-                            <FormControl.Feedback />
-                            <Errors.Field name="message" />
-                        </FormGroup>
-                        <Button disabled={disabled} bsStyle="primary"
-                            type="submit">
-                            Submit
-                        </Button>
-                    </form>
-                </Well>
+                <Card bg="light">
+                    <Card.Body>
+                        <Card.Title>Leave a Comment:</Card.Title>
+                        <form autoComplete="off" onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <FormControl as="textarea"rows="3"
+                                    disabled={disabled}
+                                    ref={(e) => this.message = e}
+                                    isInvalid={!!errors.message} />
+                                <Errors.Field name="message" />
+                            </FormGroup>
+                            <Button disabled={disabled}
+                                type="submit">
+                                Submit
+                            </Button>
+                        </form>
+                    </Card.Body>
+                </Card>
             </div>
         );
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Reflux from 'reflux';
 import {Link} from 'react-router-dom';
-import {Well, FormGroup, FormControl, Button} from 'react-bootstrap';
+import {Card, FormGroup, FormControl, Button} from 'react-bootstrap';
 
 import Errors from '../../shared/components/errors';
 import Layout from '../../shared/components/layout';
@@ -59,32 +59,29 @@ class SignIn extends Reflux.Component {
                 </p>
                 <hr/>
                 <Errors.Summary />
-                <Well>
-                    <form autoComplete="off" onSubmit={this.handleSubmit}>
-                        <FormGroup validationState={errors.username && 'error'}>
-                            <FormControl
-                                inputRef={ref => {
-                                    this.username = ref;
-                                }}
-                                placeholder="Username" type="text" />
-                            <FormControl.Feedback />
-                            <Errors.Field name="username" />
-                        </FormGroup>
-                        <FormGroup validationState={errors.password && 'error'}>
-                            <FormControl
-                                inputRef={ref => {
-                                    this.password = ref;
-                                }}
-                                placeholder="Password" type="password" />
-                            <FormControl.Feedback />
-                            <Errors.Field name="password" />
-                        </FormGroup>
-                        <Button disabled={pending} bsStyle="primary"
-                            type="submit">
-                            Sign In
-                        </Button>
-                    </form>
-                </Well>
+                <Card bg="light">
+                    <Card.Body>
+                        <form autoComplete="off" onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <FormControl ref={(e) => this.username = e}
+                                    placeholder="Username" type="text"
+                                    required
+                                    isInvalid={!!errors.username} />
+                                <Errors.Field name="username" />
+                            </FormGroup>
+                            <FormGroup>
+                                <FormControl ref={(e) => this.password = e}
+                                    placeholder="Password" type="password"
+                                    required
+                                    isInvalid={!!errors.password} />
+                                <Errors.Field name="password" />
+                            </FormGroup>
+                            <Button disabled={pending} type="submit">
+                                Sign In
+                            </Button>
+                        </form>
+                    </Card.Body>
+                </Card>
                 <AccessWarn />
             </Layout>
         );

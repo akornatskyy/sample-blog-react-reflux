@@ -1,7 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 import {Switch, Route} from 'react-router-dom';
-import {Grid} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 
 import SignIn from './membership/components/signin';
 import SignUp from './membership/components/signup';
@@ -32,7 +32,7 @@ class App extends Reflux.Component {
         }
 
         return (
-            <Grid>
+            <Container>
                 <Header>
                     {authInfo}
                 </Header>
@@ -50,7 +50,7 @@ class App extends Reflux.Component {
                 </Switch>
                 <hr/>
                 <Footer/>
-            </Grid>
+            </Container>
         );
     }
 }

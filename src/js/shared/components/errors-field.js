@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {HelpBlock} from 'react-bootstrap';
 
 
 class ErrorsField extends React.Component {
@@ -21,7 +20,9 @@ class ErrorsField extends React.Component {
         }
 
         return (
-            <HelpBlock>{errors}</HelpBlock>
+            <div className="invalid-feedback">
+                <i className="fa fa-exclamation"></i> {errors}
+            </div>
         );
     }
 }

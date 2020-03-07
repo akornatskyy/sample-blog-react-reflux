@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 import actions from './actions';
 import routes from './routes';
@@ -12,8 +12,8 @@ actions.searchPosts();
 actions.user();
 
 ReactDOM.render(
-    <BrowserRouter basename={window.location.pathname}>
+    <Router basename={window.location.pathname}>
         {routes}
-    </BrowserRouter>,
+    </Router>,
     document.getElementById('root')
 );

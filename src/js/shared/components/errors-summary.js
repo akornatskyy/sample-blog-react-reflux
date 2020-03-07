@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Alert, Glyphicon} from 'react-bootstrap';
+import {Alert} from 'react-bootstrap';
 
 
 class ErrorsSummary extends React.Component {
@@ -21,8 +21,8 @@ class ErrorsSummary extends React.Component {
         }
 
         return (
-            <Alert bsStyle="danger">
-                <Glyphicon glyph="exclamation-sign" /> {errors}
+            <Alert variant="danger">
+                <i className="fa fa-exclamation-circle"></i> {errors}
             </Alert>
         );
     }

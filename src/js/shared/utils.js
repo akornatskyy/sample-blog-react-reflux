@@ -1,6 +1,10 @@
 import {parseISO, differenceInDays, formatDistance, format} from 'date-fns';
 
 export const formatDateOrTime = d => {
+    if (!d) {
+        return '';
+    }
+
     d = parseISO(d);
     const now = new Date();
     if (differenceInDays(d, now) >= -3) {

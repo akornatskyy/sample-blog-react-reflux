@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Well, InputGroup, FormControl, Button, Glyphicon
+    Card, InputGroup, FormControl, Button
 } from 'react-bootstrap';
 
 
@@ -22,22 +22,23 @@ class SearchPostsWell extends React.Component {
         const {q, pending} = this.props;
 
         return (
-            <Well>
-                <h4>Blog Search</h4>
-                <form autoComplete="off" onSubmit={this.handleSubmit}>
-                    <InputGroup>
-                        <FormControl inputRef={ ref => {
-                            this.q = ref;
-                        }}
-                        defaultValue={q} />
-                        <InputGroup.Button>
-                            <Button disabled={pending} type="submit">
-                                <Glyphicon glyph="search" />
-                            </Button>
-                        </InputGroup.Button>
-                    </InputGroup>
-                </form>
-            </Well>
+            <Card bg="light" className="mb-3">
+                <Card.Body>
+                    <Card.Title>Blog Search</Card.Title>
+                    <form autoComplete="off" onSubmit={this.handleSubmit}>
+                        <InputGroup>
+                            <FormControl defaultValue={q}
+                                ref={(e) => this.q = e} />
+                            <InputGroup.Append>
+                                <Button disabled={pending}
+                                    variant="secondary" >
+                                    <i className="fa fa-search"></i>
+                                </Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </form>
+                </Card.Body>
+            </Card>
         );
     }
 }

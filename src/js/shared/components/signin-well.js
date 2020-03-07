@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {Well} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 
 
 const SignInWell = ({authenticated}) => {
@@ -10,14 +10,16 @@ const SignInWell = ({authenticated}) => {
     }
 
     return (
-        <Well>
-            <h4>Got account already?</h4>
-            <p>
-                <Link to="/signin">Sign in</Link>, please.
-                Your opinions and comments would be greatly
-                appreciated.
-            </p>
-        </Well>
+        <Card bg="light" className="mb-3">
+            <Card.Body>
+                <Card.Title>Got account already?</Card.Title>
+                <Card.Text>
+                    <Link to="/signin">Sign in</Link>, please.
+                    Your opinions and comments would be greatly
+                    appreciated.
+                </Card.Text>
+            </Card.Body>
+        </Card>
     );
 };
 
