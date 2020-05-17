@@ -29,18 +29,18 @@
     "reflux": "^6.4.1",
     "reflux-core": "^1.0.0",
     "reflux-promise": "^1.0.4",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "@babel/preset-react": "^7.10.1",
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "babel-preset-react-hmre": "^1.1.1",
-    "css-loader": "^3.5.3",
-    "eslint": "^7.1.0",
+    "css-loader": "^3.6.0",
+    "eslint": "^7.3.1",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react": "^7.20.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^4.3.0",
     "json-loader": "^0.5.7",
@@ -48,7 +48,7 @@
     "style-loader": "^1.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   }
 }
