@@ -62,10 +62,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader']
-                })
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: path.join(__dirname, 'src/js/shared/ajax.js'),
