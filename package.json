@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/akornatskyy/sample-blog-react",
   "dependencies": {
-    "date-fns": "^2.15.0",
+    "date-fns": "^2.16.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
