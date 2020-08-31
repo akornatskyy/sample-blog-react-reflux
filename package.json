@@ -42,7 +42,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.20.6",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "html-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "^4.4.1",
     "json-loader": "^0.5.7",
     "string-replace-loader": "^2.3.0",
     "style-loader": "^1.2.1",
