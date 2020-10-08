@@ -1,54 +1,54 @@
 {
   "name": "sample-blog-react",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple blog written using react and reflux.",
   "main": "src/js/app.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack serve",
     "lint": "eslint webpack.config.js src/ --ext .js",
-    "build": "rm -rf dist && webpack -p --colors"
+    "build": "rm -rf dist && webpack"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/akornatskyy/sample-blog-react.git"
+    "url": "https://github.com/akornatskyy/sample-blog-react-reflux.git"
   },
   "author": "Andriy Kornatskyy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/akornatskyy/sample-blog-react/issues"
+    "url": "https://github.com/akornatskyy/sample-blog-react-reflux/issues"
   },
-  "homepage": "https://github.com/akornatskyy/sample-blog-react",
+  "homepage": "https://github.com/akornatskyy/sample-blog-react-reflux",
   "dependencies": {
     "date-fns": "^2.16.1",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.3.0",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-bootstrap": "^1.4.0",
+    "react-dom": "^16.14.0",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "reflux": "^6.4.1",
     "reflux-core": "^1.0.0",
     "reflux-promise": "^1.0.4",
-    "whatwg-fetch": "^3.4.0"
+    "whatwg-fetch": "^3.4.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.5",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
     "babel-loader": "^8.1.0",
     "babel-preset-react-hmre": "^1.1.1",
-    "css-loader": "^4.2.2",
-    "eslint": "^7.8.1",
+    "css-loader": "^5.0.0",
+    "eslint": "^7.12.1",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-react": "^7.20.6",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "html-webpack-plugin": "^4.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "html-webpack-plugin": "^4.5.0",
     "json-loader": "^0.5.7",
+    "mini-css-extract-plugin": "^1.2.1",
     "string-replace-loader": "^2.3.0",
-    "style-loader": "^1.2.1",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.3.1",
+    "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
   }
 }
