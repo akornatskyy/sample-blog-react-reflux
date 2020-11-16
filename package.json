@@ -44,7 +44,7 @@
     "html-webpack-plugin": "^4.5.0",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^1.2.1",
-    "string-replace-loader": "^2.3.0",
+    "string-replace-loader": "^3.0.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.0.3",
     "webpack": "^5.3.1",
