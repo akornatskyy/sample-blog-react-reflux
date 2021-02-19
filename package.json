@@ -29,7 +29,7 @@
     "reflux": "^6.4.1",
     "reflux-core": "^1.0.0",
     "reflux-promise": "^1.0.4",
-    "whatwg-fetch": "^3.5.0"
+    "whatwg-fetch": "^3.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
