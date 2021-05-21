@@ -36,7 +36,7 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
-    "css-loader": "^5.2.4",
+    "css-loader": "^5.2.5",
     "eslint": "^7.26.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.23.2",
