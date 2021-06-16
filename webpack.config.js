@@ -19,7 +19,7 @@ module.exports = (_, argv) => {
     }
 
     return {
-        mode: 'development',
+        mode: argv.mode ? argv.mode : 'development',
         context: path.resolve(__dirname, 'src'),
         entry: {
             app: ['./js/app.js']
