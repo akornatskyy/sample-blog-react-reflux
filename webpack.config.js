@@ -14,7 +14,7 @@ module.exports = (_, argv) => {
     const devMode = argv.mode !== 'production';
     if (!devMode) {
         plugins.push(
-            new MiniCssExtractPlugin({filename: 'css/[name].[hash:5].css'})
+            new MiniCssExtractPlugin({filename: 'css/[name].[chunkhash:5].css'})
         );
     }
 
