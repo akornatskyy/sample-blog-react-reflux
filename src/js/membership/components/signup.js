@@ -56,7 +56,7 @@ class SignUp extends Reflux.Component {
                 <Card bg="light">
                     <Card.Body>
                         <form autoComplete="off" onSubmit={this.handleSubmit}>
-                            <FormGroup>
+                            <FormGroup className="mb-3">
                                 <FormControl
                                     ref={(e) => this.email = e}
                                     placeholder="Email" type="text"
@@ -64,7 +64,7 @@ class SignUp extends Reflux.Component {
                                     isInvalid={!!errors.email} />
                                 <Errors.Field name="email" />
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className="mb-3">
                                 <FormControl
                                     ref={(e) => this.username = e}
                                     placeholder="Username" type="text"
@@ -72,7 +72,7 @@ class SignUp extends Reflux.Component {
                                     isInvalid={!!errors.username} />
                                 <Errors.Field name="username" />
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className="mb-3">
                                 <FormControl
                                     ref={(e) => this.password = e}
                                     placeholder="Password" type="password"
@@ -80,7 +80,7 @@ class SignUp extends Reflux.Component {
                                     isInvalid={!!errors.apssword} />
                                 <Errors.Field name="password" />
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className="mb-3">
                                 <FormControl
                                     ref={(e) => this.confirmPassword = e}
                                     placeholder="Confirm Password"

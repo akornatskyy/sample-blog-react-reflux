@@ -5,7 +5,7 @@ import {Navbar, NavbarBrand, Nav} from 'react-bootstrap';
 
 
 const Header = ({children}) => (
-    <Navbar bg="dark" variant="dark" expand="md" fixed="top">
+    <Navbar bg="dark" variant="dark" expand="md" fixed="top" className="px-3">
         <LinkContainer to="/">
             <NavbarBrand>
                 Keep It Simple Blog
@@ -13,7 +13,7 @@ const Header = ({children}) => (
         </LinkContainer>
         <Navbar.Toggle />
         <Navbar.Collapse>
-            <Nav className="mr-auto">
+            <Nav className="me-auto">
                 <Nav.Link>About</Nav.Link>
                 <Nav.Link disabled>Contact</Nav.Link>
             </Nav>

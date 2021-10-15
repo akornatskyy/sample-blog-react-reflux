@@ -62,7 +62,7 @@ class CommentWell extends React.Component {
                     <Card.Body>
                         <Card.Title>Leave a Comment:</Card.Title>
                         <form autoComplete="off" onSubmit={this.handleSubmit}>
-                            <FormGroup>
+                            <FormGroup className="mb-3">
                                 <FormControl as="textarea"rows="3"
                                     disabled={disabled}
                                     ref={(e) => this.message = e}
