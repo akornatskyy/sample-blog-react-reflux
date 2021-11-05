@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/akornatskyy/sample-blog-react-reflux",
   "dependencies": {
-    "date-fns": "^2.25.0",
+    "date-fns": "^2.26.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.0.1",
+    "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.3.0",
@@ -33,21 +33,21 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.16.0",
     "babel-loader": "^8.2.3",
-    "css-loader": "^6.5.0",
+    "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react": "^7.27.1",
     "html-webpack-plugin": "^5.5.0",
     "json-loader": "^0.5.7",
-    "mini-css-extract-plugin": "^2.4.3",
+    "mini-css-extract-plugin": "^2.4.5",
     "string-replace-loader": "^3.0.3",
     "style-loader": "^3.3.1",
-    "terser-webpack-plugin": "^5.2.4",
-    "webpack": "^5.61.0",
+    "terser-webpack-plugin": "^5.2.5",
+    "webpack": "^5.64.2",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.4.0"
+    "webpack-dev-server": "^4.5.0"
   }
 }
